@@ -1,4 +1,4 @@
-# FreeLara
+# Meydoon
 Open source Freelancing webApp using Django
 
 ## Install
