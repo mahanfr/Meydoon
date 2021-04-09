@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
+
 # This is a class for managing our custom user authentication
 class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, user_name, phone_number, password, **other_fields):
@@ -48,4 +49,14 @@ class User(AbstractBaseUser,PermissionsMixin):
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone_number','user_name']
+
+
+# from django.db import models
+# from django.contrib.auth.models import User
+
+
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
 
