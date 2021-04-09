@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
         # TODO: Check for valid phone number
         email = self.normalize_email(email)
         user = self.model(email=email, user_name=user_name, phone_number=phone_number, **other_fields)
-        user.set_password(password);
+        user.set_password(password)
         user.save()
         return user
 
@@ -51,12 +51,13 @@ class User(AbstractBaseUser,PermissionsMixin):
     REQUIRED_FIELDS = ['phone_number','user_name']
 
 
-# from django.db import models
-# from django.contrib.auth.models import User
+# Addition to user model for more inforamtion about user
+class Profile(models.Model):
+    user = models.OneToOneField('users.User', on_delete = models.CASCADE)
+    profile_pic = models.ImageField(upload_to='pics',default='default.jpg') #save profile pic at pics folder 
+    id_number = models.CharField(max_length=50, null=True, blank=True)
+    degree = models.CharField(max_length=20, null=True, blank=True)
+    address = models.CharField(max_length=400, null=True, blank=True)
 
-
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-
-
+    def __str__(self):
+        return f'{self.user.user_name} Profile'
