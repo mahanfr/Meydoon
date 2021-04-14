@@ -1,0 +1,16 @@
+{% extends "pages/base.html" %}
+{% block title %}Login - Meydoon{% endblock %}
+{% block body %}
+    {% if message %}
+        <div>
+            {{ message }}
+            <a href = "{% url 'register' %}"> Create Account </a>
+        </div>
+    {% endif %}
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-primary" type="submit">login</button>
+        <p>dont have account??<a href="{% url 'register' %}">Create new account</a></p>
+    </form>
+{%  endblock %}

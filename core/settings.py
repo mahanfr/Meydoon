@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'gigs',
+    'pages',
 ]
 
 MIDDLEWARE = [
@@ -39,7 +40,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Meydoon.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -57,7 +58,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Meydoon.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database

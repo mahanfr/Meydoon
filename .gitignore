@@ -1,4 +1,5 @@
 .vscode
-Meydoon/__pycache__
+core/__pycache__
 users/__pycache__
 gigs/__pycache__
+pages/__pycache__

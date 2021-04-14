@@ -1,10 +1,9 @@
-{% extends 'base.html' %}
-{% block title %}Sign Up{% endblock %}
+{% extends 'pages/base.html' %}
+{% block title %}Sign Up - Meydoon{% endblock %}
 {% block body %}
-    <form  method="post" >
+    <form  method="post">
         {% csrf_token %}
-        {{ form}}
-    {{ form.as_p }}
+        {{ form }}
     <button type="submit">Sign up</button>
     <p>Already have an Account <a href="{% url 'login' %}">Login</a> Now</p>
     </form>
