@@ -7,7 +7,7 @@
             <a href = "{% url 'register' %}"> Create Account </a>
         </div>
     {% endif %}
-    <form action="{% url 'login' %}" method="post">
+    <form action="{% url 'login' %}" method="post" style = "padding-top:10px">
         {% csrf_token %}
         {{ form }}
         <button class="btn btn-primary" type="submit">login</button>

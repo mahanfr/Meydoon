@@ -1,7 +1,7 @@
 {% extends 'pages/base.html' %}
 {% block title %}Sign Up - Meydoon{% endblock %}
 {% block body %}
-    <form  method="post">
+    <form  method="post" style="padding-top:10px">
         {% csrf_token %}
         {{ form }}
     <button type="submit">Sign up</button>
