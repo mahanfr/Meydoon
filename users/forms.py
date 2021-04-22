@@ -61,7 +61,7 @@ class UserRegisterForm(forms.ModelForm):
         validate_email(email)
         if User.objects.filter(email=email).count() > 0:
             raise forms.ValidationError(self.error_messages['email_in_use'],code='email_in_use')
-        return email
+        return email.lower()
 
     # Validate username and check for availability
     def clean_user_name(self):
