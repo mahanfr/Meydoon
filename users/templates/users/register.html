@@ -1,10 +1,13 @@
 {% extends 'pages/base.html' %}
 {% block title %}Sign Up - Meydoon{% endblock %}
 {% block body %}
-    <form  method="post" style="padding-top:10px">
+    {% load crispy_forms_tags %}
+    
+    <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container-sm'>
+        <h1 class = 'display-4' style='text-align:center'> Sign Up </h1>
         {% csrf_token %}
-        {{ form }}
-    <button type="submit">Sign up</button>
+        {{ form|crispy}}
+    <button type="submit" class='btn btn-success'>Sign up</button>
     <p>Already have an Account <a href="{% url 'login' %}">Login</a> Now</p>
     </form>
 

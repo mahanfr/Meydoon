@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'users',
     'gigs',
     'pages',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -112,3 +113,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/pics/'
 AUTH_USER_MODEL = 'users.User'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/pics')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

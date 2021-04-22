@@ -7,10 +7,12 @@
             <a href = "{% url 'register' %}"> Create Account </a>
         </div>
     {% endif %}
-    <form action="{% url 'login' %}" method="post" style = "padding-top:10px">
+    {% load crispy_forms_tags %}
+    <form action="{% url 'login' %}" method="post" style = "padding-top:100px;width:400px;height:70%" class="container">
+        <h1 class = 'display-4' style='text-align:center'> Login </h1>
         {% csrf_token %}
-        {{ form }}
-        <button class="btn btn-primary" type="submit">login</button>
+        {{ form|crispy }}
+        <button class="btn btn-primary" type="submit">Login</button>
         <p>dont have account??<a href="{% url 'register' %}">Create new account</a></p>
     </form>
 {%  endblock %}
