@@ -73,7 +73,7 @@ class UserRegisterForm(forms.ModelForm):
         ## Only starts and ends with char or number
         ## Has 8-20 characters
         ## Only _ and __ are allowed
-        user_name_pattern = re.compile(r"^(?=[a-zA-Z0-9_]{8,20}$)(?!.*_{3})[^_].*[^_]$")
+        user_name_pattern = re.compile(r"^(?=[a-zA-Z0-9_]{5,20}$)(?!.*_{3})[^_].*[^_]$")
         if not re.search(user_name_pattern,user_name):
             raise forms.ValidationError(self.error_messages['user_name_invalid'],code='user_name_invalid')
         if User.objects.filter(user_name=user_name).count() > 0:
