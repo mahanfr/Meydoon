@@ -2,5 +2,6 @@
 **/__pycache__
 **/migrations/__pycache__
 static
+media
 db.sqlite3
 secrets.json

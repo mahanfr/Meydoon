@@ -54,7 +54,7 @@ class User(AbstractBaseUser,PermissionsMixin):
 # Addition to user model for more inforamtion about user
 class Profile(models.Model):
     user = models.OneToOneField('users.User', on_delete = models.CASCADE)
-    profile_pic = models.ImageField(upload_to='pics',default='default.jpg') #save profile pic at pics folder 
+    profile_pic = models.ImageField(upload_to='profile_pics',default='profile_pics/default.jpg') #save profile pic at pics folder 
     id_number = models.CharField(max_length=50, null=True, blank=True)
     degree = models.CharField(max_length=20, null=True, blank=True)
     address = models.CharField(max_length=400, null=True, blank=True)

@@ -24,14 +24,25 @@
             <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
         </ul>
-        <ul class="navbar-nav my-2 mr-5 my-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
-          </li>
-        </ul>
+        {% if user.is_authenticated %}
+          <ul class="navbar-nav my-2 mr-5 my-lg-0">
+            <li class="nav-item">
+              <img class="nav-profile-image" src="{{user.profile.profile_pic.url}}" alt="" width="40px" height="40px">
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          </ul>
+        {% else %}
+          <ul class="navbar-nav my-2 mr-5 my-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+          </ul>
+        {% endif %}
       </div>
     </nav>
     {% block body %}
