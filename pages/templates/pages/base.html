@@ -27,7 +27,7 @@
         {% if user.is_authenticated %}
           <ul class="navbar-nav my-2 mr-5 my-lg-0">
             <li class="nav-item">
-              <img class="nav-profile-image rounded-circle" src="{{user.profile.profile_pic.url}}" alt="static/pic/default.jpg" width="40px" height="40px">
+              <img class="nav-profile-image" src="{{user.profile.profile_pic.url}}" alt="static/pic/default.jpg" width="40px" height="40px">
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
