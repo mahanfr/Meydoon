@@ -1,3 +1,5 @@
+from django.db.models import fields
+from users.models import Profile
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth import (
@@ -5,6 +7,7 @@ from django.contrib.auth import (
     get_user_model, 
     password_validation,
 )
+from django.contrib.auth.forms import UsernameField
 from django.core.validators import validate_email, ValidationError
 from django.utils.translation import gettext, gettext_lazy as _
 import re
@@ -111,3 +114,35 @@ class UserRegisterForm(forms.ModelForm):
             user.save()
         return user
     
+class MyForm(forms.ModelForm):
+    """
+    form is incompelete i should fix this 
+    """
+        # List of error messages
+    error_messages = {
+        'password_mismatch': _('The two password fields didn’t match.'),
+        'email_in_use': _('Email is already in use'),
+        'phone_number_in_use':_('Phone number is already in use'),
+        'phone_number_invalid':_('Phone number is invalid'),
+        'user_name_in_use':_('Username is already in use'),
+        'user_name_invalid':_('Username invalid'),
+    }
+    class Meta:
+        model = User
+        fields = ('email','user_name','phone_number','first_name','last_name')
+        field_classes = {'username':UsernameField}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        password = self.fields.get('password')
+        if password:
+            password.help_text = password.help_text.format('../password/')
+        user_permissions = self.fields.get('user_permissions')
+        if user_permissions:
+            user_permissions.queryset = user_permissions.queryset.select_related('content_type')
+
+    def clean_password(self):
+        # Regardless of what the user provides, return the initial value.
+        # This is done here, rather than on the field, because the
+        # field does not have access to the initial value
+        return self.initial.get('password')
