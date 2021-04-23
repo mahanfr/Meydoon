@@ -3,10 +3,11 @@
 {% block body %}
 {% csrf_token %}
 	{% load crispy_forms_tags %}
-    <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container-sm'>
+    <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container-sm' enctype="multipart/form-data">
         <h1 class = 'display-4' style='text-align:center'>Edit Profile </h1>
         {% csrf_token %}
-        {{ form|crispy}}
+        {{ u_form|crispy}}
+        {{ p_form|crispy}}
     <button type="submit" class='btn btn-success' onclick="window.location.href='{%url 'profile'%}'">Confirm</button>
     
     </form>
