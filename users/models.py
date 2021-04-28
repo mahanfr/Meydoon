@@ -41,9 +41,11 @@ class User(AbstractBaseUser,PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_vertified = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    actived_at = models.DateTimeField(blank=True,null=True)
+    vertified_at = models.DateTimeField(blank=True,null=True)
+    premiumed_at = models.DateTimeField(blank=True,null=True)
 
     objects = CustomUserManager()
     
@@ -54,10 +56,14 @@ class User(AbstractBaseUser,PermissionsMixin):
 # Addition to user model for more inforamtion about user
 class Profile(models.Model):
     user = models.OneToOneField('users.User', on_delete = models.CASCADE)
-    profile_pic = models.ImageField(upload_to='profile_pics',default='profile_pics/default.jpg') #save profile pic at pics folder 
-    id_number = models.CharField(max_length=50, null=True, blank=True)
-    degree = models.CharField(max_length=20, null=True, blank=True)
+    profile_pic = models.ImageField(upload_to='profile_pics',default='profile_pics/default.jpg') #save profile pic at pics folder
+    national_id = models.CharField(max_length=20,null=True,blank=True)
+    bank_number = models.CharField(max_length=50,null=True,blank=True)
     address = models.CharField(max_length=400, null=True, blank=True)
+    bio = models.CharField(max_length=256,null=True,blank=True)
+    degree = models.IntegerField(blank=True,null=True)
+    degree_profanity = models.IntegerField(blank=True,null=True)
+    birthday = models.DateField(blank=True,null=True)
 
     def __str__(self):
         return f'{self.user.user_name} Profile'
