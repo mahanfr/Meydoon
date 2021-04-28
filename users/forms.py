@@ -9,8 +9,8 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.forms import UsernameField
 from django.core.validators import validate_email, ValidationError
+from users.validator import validate_phone_number, validate_username
 from django.utils.translation import gettext, gettext_lazy as _
-import re
 
 User = get_user_model()
 
@@ -21,10 +21,6 @@ class UserRegisterForm(forms.ModelForm):
     error_messages = {
         'password_mismatch': _('The two password fields didn’t match.'),
         'email_in_use': _('Email is already in use'),
-        'phone_number_in_use':_('Phone number is already in use'),
-        'phone_number_invalid':_('Phone number is invalid'),
-        'user_name_in_use':_('Username is already in use'),
-        'user_name_invalid':_('Username invalid'),
     }
 
     class Meta:
@@ -63,22 +59,16 @@ class UserRegisterForm(forms.ModelForm):
     # Validate email and check for availability
     def clean_email(self):
         # extract email from form data
-        email = self.cleaned_data['email']
+        email = self.cleaned_data['email'].lower()
         validate_email(email)
         if User.objects.filter(email=email).count() > 0:
             raise forms.ValidationError(self.error_messages['email_in_use'],code='email_in_use')
-        return email.lower()
+        return email
 
     # Validate username and check for availability
     def clean_user_name(self):
         user_name = self.cleaned_data['user_name']
-        # init a username pattern
-        ## Only starts and ends with char or number
-        ## Has 8-20 characters
-        ## Only _ and __ are allowed
-        user_name_pattern = re.compile(r"^(?=[a-zA-Z0-9_]{5,20}$)(?!.*_{3})[^_].*[^_]$")
-        if not re.search(user_name_pattern,user_name):
-            raise forms.ValidationError(self.error_messages['user_name_invalid'],code='user_name_invalid')
+        validate_username(user_name)
         if User.objects.filter(user_name=user_name).count() > 0:
             raise forms.ValidationError(self.error_messages['user_name_in_use'],code='user_name_in_use')
         return user_name
@@ -87,11 +77,7 @@ class UserRegisterForm(forms.ModelForm):
     def clean_phone_number(self):
         # extract phonenumber from form data
         phone_number = self.cleaned_data['phone_number']
-        # init a phone number pattern
-        phone_number_pattern = re.compile(r"^09\d{9}$") # 09([0-9]*9)
-        # check for validation
-        if not re.search(phone_number_pattern, phone_number):
-            raise forms.ValidationError(self.error_messages['phone_number_invalid'],code='phone_number_invalid')
+        validate_phone_number(phone_number)
         if User.objects.filter(phone_number=phone_number).count() > 0:
             raise forms.ValidationError(self.error_messages['phone_number_in_use'],code='phone_number_in_use')
         return phone_number
@@ -115,15 +101,39 @@ class UserRegisterForm(forms.ModelForm):
         return user
     
 class UserEditForm(forms.ModelForm):
-    #we need to add input validation 
+
+    error_messages = {
+        'user_name_in_use':_('Username is already in use'),
+        'phone_number_in_use':_('Phonenumber is already in use')
+    }
+
     class Meta:
         model = User
         fields = ('user_name','phone_number','first_name','last_name')
 
- #we need to add input validation 
+    def clean_user_name(self):
+        user_name = self.cleaned_data['user_name']
+        validate_username(user_name)
+        user_name_exists = User.objects.filter(user_name=user_name).exclude(id=self.instance.id)
+        if self.instance and self.instance.id and user_name_exists:
+            raise forms.ValidationError(self.error_messages['user_name_in_use'],code='user_name_in_use')
+        return user_name
+
+    # Validate phonenumber and check for availability
+    def clean_phone_number(self):
+        # extract phonenumber from form data
+        phone_number = self.cleaned_data['phone_number']
+        validate_phone_number(phone_number)
+        phone_number_exists = User.objects.filter(phone_number=phone_number).exclude(id=self.instance.id)
+        if self.instance and self.instance.id and phone_number_exists:
+            raise forms.ValidationError(self.error_messages['phone_number_in_use'],code='phone_number_in_use')
+        return phone_number
+    
+
+#we need to add input validation 
 class ProfileEditForm(forms.ModelForm):
     profile_pic = forms.ImageField()
     class Meta:
         model = Profile
-        fields = ('profile_pic', 'id_number', 'degree', 'address')
+        fields = ('profile_pic', 'id_number', 'address')
         
