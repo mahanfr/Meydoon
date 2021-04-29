@@ -3,8 +3,8 @@
 {% block body %}
 {% csrf_token %}
 	{% load crispy_forms_tags %}
-    <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container-sm' enctype="multipart/form-data">
-        <h1 class = 'display-4' style='text-align:center'>Edit Profile </h1>
+    <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
+        <h1 class = 'display-4' style='text-align:center ; padding-bottom:50px'>Edit Profile </h1>
         {% csrf_token %}
         {{ u_form|crispy}}
         {{ p_form|crispy}}

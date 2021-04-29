@@ -135,5 +135,5 @@ class ProfileEditForm(forms.ModelForm):
     profile_pic = forms.ImageField()
     class Meta:
         model = Profile
-        fields = ('profile_pic', 'national_id', 'address')
+        fields = ('profile_pic', 'national_id', 'address', 'bio', 'birthday')
         
