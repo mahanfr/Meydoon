@@ -1,0 +1,15 @@
+{% extends "pages/base.html" %}
+{% block title %}Gigs{% endblock %}
+{% block body %}
+<div class='container row' style="margin:auto">
+{% for gig  in gigs  %}
+<div class="container col-sm border border-primary rounded" style="margin:10px 10px 10px 10px;">
+    <a class="display-4" href="{%url 'gig_info' gig.id %}" style="margin:auto">{{gig}}</a>
+</div>   
+{% endfor %}
+</div>    
+
+ 
+
+
+{% endblock %}
