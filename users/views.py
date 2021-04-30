@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required 
 from django.shortcuts import redirect, render
 from .forms import UserEditForm, UserRegisterForm, ProfileEditForm
+from gigs.models import Gig, ShowcaseImage
 
 def register(request):
     if request.method == 'POST':
@@ -37,4 +38,6 @@ def profile_edit(request):
     
 @login_required
 def profile(request):
-    return render(request,'users/profile.html')
+    user_gig = Gig.objects.all().filter(user=request.user)
+    context = {'user_gig':user_gig}
+    return render(request,'users/profile.html',context=context)
