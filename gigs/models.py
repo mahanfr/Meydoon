@@ -8,13 +8,19 @@ User = get_user_model()
 # This a model that hanndels advertisment for intrested user
 # to be shown to other users
 class Gig(models.Model):
+    title = models.CharField(max_length=25, blank=True, null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     category = models.ForeignKey('gigs.Category',on_delete=models.SET_NULL,null=True,blank=True)
     description = models.TextField()
     experience = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
-        return f'{self.user.user_name} gig'
+        return f'{self.user.user_name} {self.title} gig'
+    
+    def get_showcase(self):
+        showcase = ShowcaseImage.objects.all().filter(gig=self)
+        return showcase[0].image
+
 
 
 # Every gig has a category and you can choose one 

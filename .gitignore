@@ -1,6 +1,6 @@
 .vscode
 **/__pycache__
-**/migrations/__pycache__
+**/migrations
 static
 media
 db.sqlite3

@@ -3,13 +3,10 @@
 {% block body %}
 <div class='container row' style="margin:auto">
 {% for gig  in gigs  %}
-<div class="container col-sm border border-primary rounded" style="margin:10px 10px 10px 10px;">
-    <a class="display-4" href="{%url 'gig_info' gig.id %}" style="margin:auto">{{gig}}</a>
-</div>   
+<div class="container col-sm-2 rounded" style="margin:10px 10px 10px 10px;">
+<a href = {%url "gig_info" gig.id %}><img src={{gig.get_showcase.url}} class="rounded"style="width:200px;height:100px"></a>
+<label>{{gig.title}} from {{gig.user.user_name}}</label>
+</div> 
 {% endfor %}
 </div>    
-
- 
-
-
 {% endblock %}
