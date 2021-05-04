@@ -1,7 +1,8 @@
-from .forms import GigCreationForm , ShowcaseForm
+from .forms import GigCreationForm , ShowcaseForm,CommentForm
 from django.http.response import Http404
 from django.shortcuts import redirect, render
-from .models import Gig
+from .models import Comment, Gig
+from django.urls import reverse
 # Create your views here.
 def gig_index(request):
     gigs = Gig.objects.all()
@@ -11,10 +12,21 @@ def gig_index(request):
 def gig_view(request, gig_id):
     try:
         gig = Gig.objects.get(id=gig_id)
+        comments =Comment.objects.all().filter(gig=gig)
+        if request.method == 'POST':
+            c_form = CommentForm(request.POST)
+            if c_form.is_valid():
+                c_form.save(commit=False).user = request.user
+                c_form.save(commit=False).gig = gig 
+                c_form.save()
+                return redirect('gig_info', gig_id=gig.id)
+        else:
+            c_form = CommentForm()
+        
     except Gig.DoesNotExist:
         raise Http404('Gig not found')
 
-    return render(request,'gigs/gig.html',context={"gig":gig})        
+    return render(request,'gigs/gig.html',context={"gig":gig,'c_form':c_form,'comments':comments})        
 
 def create_gig(request):
     if request.method == 'POST':

@@ -132,8 +132,9 @@ class UserEditForm(forms.ModelForm):
 
 #we need to add input validation 
 class ProfileEditForm(forms.ModelForm):
-    profile_pic = forms.ImageField()
+    profile_pic = forms.ImageField(required=False)
+    birthday = forms.DateField(required=False)
     class Meta:
         model = Profile
-        fields = ('profile_pic', 'national_id', 'address', 'bio', 'birthday')
+        fields = ('profile_pic', 'national_id', 'address', 'bio')
         
