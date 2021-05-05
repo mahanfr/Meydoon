@@ -37,7 +37,7 @@ def create_gig(request):
             gig = g_form.save()
             img_form.save(commit=False).gig = gig 
             img_form.save()
-            return redirect('gig_index')
+            return redirect('gig_info',gig_id=gig.id)
     else:
          g_form = GigCreationForm()
          img_form = ShowcaseForm()
