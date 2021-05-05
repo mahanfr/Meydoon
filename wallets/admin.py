@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Wallet
+from .models import Wallet ,Transaction
 
 class WalletConfig(admin.ModelAdmin):
     readonly_fields=('user','amount')
@@ -11,3 +11,4 @@ class WalletConfig(admin.ModelAdmin):
         return False
 
 admin.site.register(Wallet,WalletConfig)
+# admin.site.register(Transaction)
