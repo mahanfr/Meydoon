@@ -14,6 +14,8 @@ class ShowcaseForm(forms.ModelForm):
     """
     Form for add Gig 
     """
+    image = forms.ImageField(required=False)
+    image_meta = forms.CharField(required=False)
     class Meta:
         model = ShowcaseImage
         fields = ['image_meta', 'image']

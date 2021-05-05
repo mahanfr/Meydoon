@@ -70,7 +70,7 @@ class Comment(models.Model):
 class ShowcaseImage(models.Model):
     gig = models.ForeignKey('gigs.Gig',on_delete=models.CASCADE)
     image_meta = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='scimages',default='default.jpg')
+    image = models.ImageField(upload_to='scimages',default='scimages/default.jpg')
 
     def __str__(self):
         return f'#{self.id}'

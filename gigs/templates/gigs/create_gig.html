@@ -1,9 +1,9 @@
 {% extends "pages/base.html" %}
 {% block title %}Gigs{% endblock %}
 {% block body %}
-{% load crispy_forms_tags %}
-{% csrf_token %}
-    <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
+    {% load crispy_forms_tags %}
+    {% csrf_token %}
+    <form  method="post" style="padding-top:50px; width:400px;height:100%" class='container' enctype="multipart/form-data">
     {% csrf_token %}
     {{g_form|crispy}}
     {{img_form|crispy}}
