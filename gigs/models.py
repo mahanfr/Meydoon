@@ -8,7 +8,7 @@ User = get_user_model()
 # This a model that hanndels advertisment for intrested user
 # to be shown to other users
 class Gig(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50,null=False)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     category = models.ForeignKey('gigs.Category',on_delete=models.SET_NULL,null=True,blank=True)
     sub_category = models.ForeignKey('gigs.SubCategory', on_delete=models.SET_NULL,null=True,blank=True)

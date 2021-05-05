@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required 
 from django.shortcuts import redirect, render
 from .forms import UserEditForm, UserRegisterForm, ProfileEditForm
-from gigs.models import Gig, ShowcaseImage
+from gigs.models import Gig
 
 def register(request):
     if request.method == 'POST':
