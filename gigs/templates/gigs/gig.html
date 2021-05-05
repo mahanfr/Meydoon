@@ -1,7 +1,46 @@
 {% extends "pages/base.html" %}
 {% block title %}{{gig}}{% endblock %}
 {% block body %}
-    <div class='container' style="padding-top:5%">
-    <p class = 'h3'>{{gig.description}}</p>
+{% load crispy_forms_tags %}
+    <div class='container' style="padding-top:5%;padding-bottom:5%">
+    <p class = 'display-3'>{{gig.title}}</p>
+    <p><h1>description : </h1>{{gig.description}}</p>
+    <hr>
+    <div>
+    <h1>Plans</h1>
+    {% comment %} plans will shown here {% endcomment %}
+    </div>
+    <hr>
+    <h1>Comments</h1>
+    {% for comment in comments %}
+        {% if comment.is_approved %}
+        <div >
+        <h5>{{comment.title}}</h3>
+        <h6>{{comment.body}}</h5>
+        <p>{{comment.user}}<p>
+        </div>
+        {% endif %}
+    {% endfor %}
+    <hr>
+    {% for comment in comments %}
+        {% if not comment.is_approved and user == gig.user%}
+        <div>
+        <h5>{{comment.title}}</h3>
+        <h6>{{comment.body}}</h5>
+        <p>{{comment.user}}<p>
+        <p> *new  you have to confirm this <p> 
+        {% comment %} comment confirmation should add {% endcomment %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% if user != gig.user %}
+        <h1>Wtit a comment</h1>
+        <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{c_form|crispy}}
+            <button type="submit" class='btn btn-success'>Confirm</button>
+        </form>   
+    {% endif %}
+
     </div>
 {% endblock %}
