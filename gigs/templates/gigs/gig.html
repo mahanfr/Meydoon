@@ -17,7 +17,7 @@
         <div >
         <h5>{{comment.title}}</h3>
         <h6>{{comment.body}}</h5>
-        <p>{{comment.user}}<p>
+        <p>{{comment.user.user_name}}<p>
         </div>
         {% endif %}
     {% endfor %}
@@ -27,19 +27,28 @@
         <div>
         <h5>{{comment.title}}</h3>
         <h6>{{comment.body}}</h5>
-        <p>{{comment.user}}<p>
+        <p>{{comment.user.user_name}}<p>
         <p> *new  you have to confirm this <p> 
         {% comment %} comment confirmation should add {% endcomment %}
         </div>
         {% endif %}
     {% endfor %}
     {% if user != gig.user %}
+        {% if user.is_authenticated %}
         <h1>Wtit a comment</h1>
         <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
         {% csrf_token %}
         {{c_form|crispy}}
             <button type="submit" class='btn btn-success'>Confirm</button>
-        </form>   
+        </form>
+        {% else %}
+        <p>You have to <a href="{% url 'login' %}?next_page={{request.path}}">login<a> to your account first<p>   
+        {% endif %}
+    {% endif %}
+
+    {% if user == gig.user %}
+    <a class='btn btn-primary'>Edit</a>
+     {% comment %} edit gig {% endcomment %}
     {% endif %}
 
     </div>

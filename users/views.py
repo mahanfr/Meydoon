@@ -38,6 +38,6 @@ def profile_edit(request):
     
 @login_required
 def profile(request):
-    user_gig = Gig.objects.all().filter(user=request.user)
+    user_gig = Gig.objects.filter(user=request.user)
     context = {'user_gig':user_gig}
     return render(request,'users/profile.html',context=context)

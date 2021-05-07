@@ -1,18 +1,21 @@
 from .forms import GigCreationForm , ShowcaseForm,CommentForm
 from django.http.response import Http404
 from django.shortcuts import redirect, render
-from .models import Comment, Gig
+from .models import Category, Comment, Gig
 from django.urls import reverse
 # Create your views here.
 def gig_index(request):
     gigs = Gig.objects.all()
-    context = {'gigs':gigs}
+    categories = Category.objects.all()
+    context = {'gigs':gigs,'categories':categories}
     return render(request,'gigs/index.html',context=context)
 
 def gig_view(request, gig_id):
     try:
         gig = Gig.objects.get(id=gig_id)
-        comments =Comment.objects.all().filter(gig=gig)
+        comments =Comment.objects.filter(gig=gig)
+        next_url = request.GET.get('next','/')
+        
         if request.method == 'POST':
             c_form = CommentForm(request.POST)
             if c_form.is_valid():
@@ -43,3 +46,14 @@ def create_gig(request):
          img_form = ShowcaseForm()
 
     return render(request,"gigs/create_gig.html",context={'g_form':g_form, 'img_form':img_form})
+
+def show_category(request,category_id):
+    try:
+        gigs = Gig.objects.filter(category__id=category_id)
+        categories = Category.objects.all()
+        context = {'gigs':gigs,'categories':categories}
+        return render(request,'gigs/category.html',context=context)
+    except Gig.DoesNotExist:
+        raise Http404('there is no gig in this category')
+
+    

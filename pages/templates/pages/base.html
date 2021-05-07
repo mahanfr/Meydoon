@@ -22,13 +22,16 @@
             <a class="nav-link" href="{% url 'index' %}">Home<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'gig_index' %}">Gigs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
         </ul>
         {% if user.is_authenticated %}
           <ul class="navbar-nav my-2 mr-5 my-lg-0">
             <li class="nav-item">
-              <a href="{% url  'profile'%}"><img class="nav-profile-image rounded-circle" src="{{user.profile.profile_pic.url}}" alt="static/pic/default.jpg" width="40px" height="40px"></a>
+              <a href="{% url  'profile'%}"><img class="nav-profile-image rounded-circle" src="{{user.profile.profile_pic.url}}" alt="media/profile_pics/default.jpg" width="40px" height="40px"></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href=""> {{user.wallet.amount}} $</a>
@@ -89,8 +92,8 @@
   
       <!-- Copyright -->
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2021 Copyright
-        <a class="text-white" href="https://github.com/HamzehMahmoudi/Meydoon"> Meydoon </a>
+        © {{year}} Copyright
+        <a class="text-white" href="https://github.com/mahanfarzaneh2000/Meydoon"> Meydoon </a>
       </div>
     </footer>
   </body>
