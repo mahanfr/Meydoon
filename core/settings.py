@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'gigs',
     'pages',
     'wallets',
+    'orders',
     'crispy_forms',
 ]
 
