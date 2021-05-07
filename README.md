@@ -3,11 +3,26 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/mahanfarzaneh2000/meydoon?style=flat-square)
 ![GitHub followers](https://img.shields.io/github/followers/mahanfarzaneh2000?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/mahanfarzaneh2000/meydoon)
+
 </br>
 <p align="center">
-  <a href="https://github.com/mahanfarzaneh2000/Meydoon"><h2 align="center">Meydoon</h2></a>
+  <a href="https://github.com/mahanfarzaneh2000/Meydoon">
+    <img src="https://github.com/mahanfarzaneh2000/Meydoon/blob/master/dev/assets/logo.png?raw" alt="Logo" width="150" height="150">
+  </a>
+  <h3 align="center">Meydoon</h3>
 
-  <h3 align="center">Open Source Freelancing Web Application Using Django</h3>
+  <p align="center">
+    Open Source Freelancing Web Application Using Django
+    <br />
+    <a href="https://github.com/mahanfarzaneh2000/meydoon"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/mahanfarzaneh2000/meydoon">View Demo</a>
+    ·
+    <a href="https://github.com/mahanfarzaneh2000/meydoon">Report Bug</a>
+    ·
+    <a href="https://github.com/mahanfarzaneh2000/meydoon">Request Feature</a>
+  </p>
 </p>
 
 ## Install
@@ -29,7 +44,7 @@ For getting Secrets key contact <a href="mahan.farzaneh@gmail.com">Email</a>
 ## Database
 Database designed as a concept and might be different than the actual app Models
 </br></br>
-<img src="https://github.com/mahanfarzaneh2000/Meydoon/blob/master/dev/assets/db.png?raw=true" alt="Logo" width="720">
+<img src="https://github.com/mahanfarzaneh2000/Meydoon/blob/master/dev/assets/db.png?raw=true" alt="Logo" width="400">
 </br></br>
 
 ## Contacts
@@ -42,7 +57,7 @@ Database designed as a concept and might be different than the actual app Models
 ![Twitter Follow](https://img.shields.io/twitter/follow/mahan_farzaneh?style=flat)
 
 ### Co-Manager and Lead Developer
-<b>Hamzeh Mahmoudi</b> - [@H10odi](https://twitter.com/H10odi) - hamze.mahmoudi@gmail.com
+<b>Hamzeh Mahmoudi</b> - [@H10odi](https://twitter.com/H10odi) - hamzehmahmoudi9@gmail.com
 </br></br>
 <a href="https://www.linkedin.com/in/hamzeh-mahmoudi-60605b195/">![LinkedIn](https://shields.io/badge/-LinkedIn-black.svg?style=flat&logo=linkedin&color=555)</a>
 ![Twitter URL](https://img.shields.io/twitter/url?style=flat&url=https%3A%2F%2Ftwitter.com%2FH10odi)
