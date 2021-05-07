@@ -7,7 +7,7 @@ from django.urls import reverse
 def gig_index(request):
     gigs = Gig.objects.all()
     categories = Category.objects.all()
-    context = {'gigs':gigs,'categories':categories}
+    context = {'gigs':gigs}
     return render(request,'gigs/index.html',context=context)
 
 def gig_view(request, gig_id):
@@ -51,7 +51,7 @@ def show_category(request,category_id):
     try:
         gigs = Gig.objects.filter(category__id=category_id)
         categories = Category.objects.all()
-        context = {'gigs':gigs,'categories':categories}
+        context = {'gigs':gigs}
         return render(request,'gigs/category.html',context=context)
     except Gig.DoesNotExist:
         raise Http404('there is no gig in this category')

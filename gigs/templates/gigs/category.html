@@ -1,22 +1,12 @@
 {% extends "pages/base.html" %}
 {% block title %}Gigs{% endblock %}
 {% block body %}
-<div class="btn-group row">
-  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Category
-  </button>
-  <div class="dropdown-menu">
-    {% for category in categories %}
-    <a class="dropdown-item" href ="{% url 'category' category.id %}"> {{category.name}}</a>
-    {% endfor %}
-  </div>
-</div>
 <div class='container row' style="margin:auto">
 {% for gig  in gigs  %}
-<div class="container col-sm-2 rounded" style="margin:10px 10px 10px 10px;">
-<a href = {%url "gig_info" gig.id %}><img src={{gig.get_showcase.url}} class="rounded"style="width:200px;height:100px"></a>
-<label>{{gig.title}} from {{gig.user.user_name}}</label>
-</div> 
+  <div class="container col-sm-2 rounded" style="margin:10px 10px 10px 10px;">
+    <a href = {%url "gig_info" gig.id %}><img src={{gig.get_showcase.url}} class="rounded"style="width:200px;height:100px"></a>
+    <label>{{gig.title}} from {{gig.user.user_name}}</label>
+  </div> 
 {% endfor %}
 </div>    
 {% endblock %}
