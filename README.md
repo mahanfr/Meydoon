@@ -1,8 +1,8 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
-![GitHub](https://img.shields.io/github/license/mahanfarzaneh2000/meydoon)
 ![GitHub language count](https://img.shields.io/github/languages/count/mahanfarzaneh2000/meydoon?style=flat-square)
 ![GitHub followers](https://img.shields.io/github/followers/mahanfarzaneh2000?style=flat-square)
+![GitHub](https://img.shields.io/github/license/mahanfarzaneh2000/meydoon)
 </br>
 <p align="center">
   <a href="https://github.com/mahanfarzaneh2000/Meydoon"><h2 align="center">Meydoon</h2></a>
