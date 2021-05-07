@@ -57,7 +57,7 @@ Database designed as a concept and might be different than the actual app Models
 ![Twitter Follow](https://img.shields.io/twitter/follow/mahan_farzaneh?style=flat)
 
 ### Co-Manager and Lead Developer
-<b>Hamzeh Mahmoudi</b> - [@H10odi](https://twitter.com/H10odi) - hamze.mahmoudi@gmail.com
+<b>Hamzeh Mahmoudi</b> - [@H10odi](https://twitter.com/H10odi) - hamzehmahmoudi9@gmail.com
 </br></br>
 <a href="https://www.linkedin.com/in/hamzeh-mahmoudi-60605b195/">![LinkedIn](https://shields.io/badge/-LinkedIn-black.svg?style=flat&logo=linkedin&color=555)</a>
 ![Twitter URL](https://img.shields.io/twitter/url?style=flat&url=https%3A%2F%2Ftwitter.com%2FH10odi)
