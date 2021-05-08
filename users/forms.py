@@ -136,5 +136,5 @@ class ProfileEditForm(forms.ModelForm):
     birthday = forms.DateField(required=False)
     class Meta:
         model = Profile
-        fields = ('profile_pic', 'national_id', 'address', 'bio')
+        fields = ('profile_pic', 'national_id', 'bank_number','address', 'bio')
         
