@@ -1,71 +1,139 @@
 {% extends "pages/base.html" %}
+{% block head %}
+<script src="https://kit.fontawesome.com/d6eba2497b.js" crossorigin="anonymous"></script>
+{% endblock %}
 {% block title %}{{gig}}{% endblock %}
 {% block body %}
 {% load crispy_forms_tags %}
-    <div class='container' style="padding-top:5%;padding-bottom:5%">
-    <p class = 'display-3'>{{gig.title}}</p>
-    <p><h1>description : </h1>{{gig.description}}</p>
-    <hr>
-    <div>
-    <h1>Plans</h1>
-    {% for plan in plans %}
-     <div style = 'text-align:center'  >
-        <h3>{{plan.title}}</h3>
-        <h5>{{plan.feature_list}}</h5>
-        <h6>{{plan.price}} $<h6>
+<div class="container" style="max-width: 90%;">
+  <div {% if request.user == gig.user %}class="row"{% endif %}>
+    <div {% if request.user == gig.user %}class='col-md-8'{% endif %}>
+        <p align='center' class='display-4'>{{gig.title}}</p>
+        <p><h1>description : </h1>{{gig.description}}</p>
         <hr>
-        {% comment %} look better with card view {% endcomment %}
+        
+        <h1>Plans</h1>
+        {% for plan in plans %}
+            <div style = 'text-align:center'>
+                <h3>{{plan.title}}</h3>
+                <h5>{{plan.feature_list}}</h5>
+                <h6>{{plan.price}} $<h6>
+                <hr>
+                {% comment %} look better with card view {% endcomment %}
+            </div>
+        {% endfor %}
+        
+        <hr>
+        <h1>Comments</h1>
+        {% for comment in comments %}
+            {% if comment.is_approved %}
+            <div >
+            <h5>{{comment.title}}</h3>
+            <h6>{{comment.body}}</h5>
+            <p>{{comment.user.user_name}}<p>
+            </div>
+            {% endif %}
+        {% endfor %}
+        <hr>
+        {% for comment in comments %}
+            {% if not comment.is_approved and user == gig.user%}
+            <div>
+            <h5>{{comment.title}}</h3>
+            <h6>{{comment.body}}</h5>
+            <p>{{comment.user.user_name}}<p>
+            <p> *new  you have to confirm this <p> 
+            {% comment %} comment confirmation should add {% endcomment %}
+            </div>
+            {% endif %}
+        {% endfor %}
+        {% if user != gig.user %}
+            {% if user.is_authenticated %}
+            <h1>Wtit a comment</h1>
+            <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{c_form|crispy}}
+                <button type="submit" class='btn btn-success'>Confirm</button>
+            </form>
+            {% else %}
+            <p>You have to <a href="{% url 'login' %}?next_page={{request.path}}">login<a> to your account first<p>   
+            {% endif %}
+        {% endif %}
+  
+        {% if user == gig.user %}
+        <a class='btn btn-primary'>Edit</a>
+        {% comment %} edit gig {% endcomment %}
+        {% endif %}
+  
     </div>
-    {% endfor %}
     {% if request.user == gig.user %}
-        {% comment %} we can handel this with jquery (form will show up when we click btn) {% endcomment %}
-     <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
-        {% csrf_token %}
-        {{p_form|crispy}}
+    <div class="col-md-4 py-3">
+      
+      <div class="card">
+        <div class="card-header" style="background-color:gray;color: white;cursor: pointer;" onclick="showCreatePlanCard()">
+          <i class="far fa-check-circle" {% if gig.plans_count == 0 %}style="color: silver;"{% else %}style="color: greenyellow;"{% endif %}></i>
+          <b>Create a plan</b>
+        </div>
+        <div id="CreatePlanCard" class="card-body" style="display: none;">
+          {% comment %} we can handel this with jquery (form will show up when we click btn) {% endcomment %}
+          <form  method="post" class='container' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{p_form|crispy}}
             <button type="submit" class='btn btn-success'>Add</button>
-        </form>
-    {% endif %}
-    </div>
-    <hr>
-    <h1>Comments</h1>
-    {% for comment in comments %}
-        {% if comment.is_approved %}
-        <div >
-        <h5>{{comment.title}}</h3>
-        <h6>{{comment.body}}</h5>
-        <p>{{comment.user.user_name}}<p>
+          </form>
         </div>
-        {% endif %}
-    {% endfor %}
-    <hr>
-    {% for comment in comments %}
-        {% if not comment.is_approved and user == gig.user%}
-        <div>
-        <h5>{{comment.title}}</h3>
-        <h6>{{comment.body}}</h5>
-        <p>{{comment.user.user_name}}<p>
-        <p> *new  you have to confirm this <p> 
-        {% comment %} comment confirmation should add {% endcomment %}
+      </div>
+
+      <div class="card">
+        <div class="card-header" style="background-color:gray;color: white;cursor: pointer;" onclick="showAddImageCard()">
+          <i class="far fa-check-circle" {% if gig.plans_count == 0 %}style="color: silver;"{% else %}style="color: greenyellow;"{% endif %}></i>
+          <b>Add an Image</b>
         </div>
-        {% endif %}
-    {% endfor %}
-    {% if user != gig.user %}
-        {% if user.is_authenticated %}
-        <h1>Wtit a comment</h1>
-        <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
-        {% csrf_token %}
-        {{c_form|crispy}}
-            <button type="submit" class='btn btn-success'>Confirm</button>
-        </form>
-        {% else %}
-        <p>You have to <a href="{% url 'login' %}?next_page={{request.path}}">login<a> to your account first<p>   
-        {% endif %}
-    {% endif %}
+        <div id="AddImageCard" class="card-body" style="display: none;">
+          {% comment %} we can handel this with jquery (form will show up when we click btn) {% endcomment %}
+          <form  method="post" class='container' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{p_form|crispy}}
+            <button type="submit" class='btn btn-success'>Add</button>
+          </form>
+        </div>
+      </div>
 
-    {% if user == gig.user %}
-    <a class='btn btn-primary'>Edit</a>
-     {% comment %} edit gig {% endcomment %}
-    {% endif %}
-
+      <div align="center" class="row" style="width: inherit;margin-left: 0px;margin-top: 1px;">
+        <a href="#">
+          <div class="col card"  style="background-color:gray;color: white;cursor: pointer;">
+            <div align="center" class="card-header">
+              <b>Edit</b>
+            </div>
+          </div>
+        </a>
+        <a href="#">
+          <div class="col card"  style="background-color:gray;color: white;cursor: pointer;margin-left: 4px;">
+            <div align="center" class="card-header">
+              <b>Delete</b>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
+    {% endif %}
+  </div>
+</div>
+<script>
+  function showCreatePlanCard() {
+    var x = document.getElementById("CreatePlanCard");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  function showAddImageCard() {
+    var x = document.getElementById("AddImageCard");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
 {% endblock %}

@@ -22,6 +22,9 @@ class Gig(models.Model):
         showcase = ShowcaseImage.objects.all().filter(gig=self)
         return showcase[0].image
 
+    def plans_count(self):
+        return self.plan_set.count()
+
 
 # Every gig has a category and you can choose one 
 # from database of this model
