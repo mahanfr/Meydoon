@@ -15,14 +15,13 @@ class ShowcaseForm(forms.ModelForm):
     Form for add Gig 
     """
     image = forms.ImageField(required=False)
-    image_meta = forms.CharField(required=False)
     class Meta:
         model = ShowcaseImage
-        fields = ['image_meta', 'image']
+        fields = ['image']
         exclude = ['gig']
 
 class CommentForm(forms.ModelForm):
-
+    body = forms.CharField(widget=forms.Textarea, max_length=400, required=False)
     class Meta:
         model = Comment
         fields = ['title', 'body']
