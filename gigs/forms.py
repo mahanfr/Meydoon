@@ -1,5 +1,5 @@
 from django import forms
-from .models import Gig, ShowcaseImage,Comment
+from .models import Gig, Plan, ShowcaseImage,Comment
 
 class GigCreationForm(forms.ModelForm):
     """
@@ -28,3 +28,12 @@ class CommentForm(forms.ModelForm):
         fields = ['title', 'body']
         exclude = ['gig','user', 'is_aproved']
                 
+class PlanForm(forms.ModelForm):
+    """
+    Form for add Plans 
+    """
+    class Meta:
+        model = Plan
+        fields = ['title', 'price', 'feature_list']
+        exclude = ['gig']                
+    

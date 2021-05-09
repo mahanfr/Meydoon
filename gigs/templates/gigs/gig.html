@@ -8,7 +8,23 @@
     <hr>
     <div>
     <h1>Plans</h1>
-    {% comment %} plans will shown here {% endcomment %}
+    {% for plan in plans %}
+     <div style = 'text-align:center'  >
+        <h3>{{plan.title}}</h3>
+        <h5>{{plan.feature_list}}</h5>
+        <h6>{{plan.price}} $<h6>
+        <hr>
+        {% comment %} look better with card view {% endcomment %}
+    </div>
+    {% endfor %}
+    {% if request.user == gig.user %}
+        {% comment %} we can handel this with jquery (form will show up when we click btn) {% endcomment %}
+     <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{p_form|crispy}}
+            <button type="submit" class='btn btn-success'>Add</button>
+        </form>
+    {% endif %}
     </div>
     <hr>
     <h1>Comments</h1>
