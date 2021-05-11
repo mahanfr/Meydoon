@@ -11,6 +11,7 @@ from django.contrib.auth.forms import UsernameField
 from django.core.validators import validate_email, ValidationError
 from users.validator import validate_phone_number, validate_username
 from django.utils.translation import gettext, gettext_lazy as _
+from datetime import datetime
 
 User = get_user_model()
 
@@ -133,7 +134,7 @@ class UserEditForm(forms.ModelForm):
 #we need to add input validation 
 class ProfileEditForm(forms.ModelForm):
     profile_pic = forms.ImageField(required=False)
-    birthday = forms.DateField(required=False)
+    birthday = forms.DateField(required=False,widget=forms.SelectDateWidget(years=[x for x in range(1970,datetime.now().year+1)]))
     class Meta:
         model = Profile
         fields = ('profile_pic', 'national_id', 'bank_number','address', 'bio')

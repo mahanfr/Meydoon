@@ -13,17 +13,20 @@
         <hr>
         
         <h1>Plans</h1>
+        <div class="row row-cols-1 row-cols-md-2">
         {% for plan in plans %}
-            <div style = 'text-align:center'>
-                <h3>{{plan.title}}</h3>
-                <h5>{{plan.feature_list}}</h5>
-                <h6>{{plan.price}} $<h6>
-                <a class='btn btn-success'>Order</a>
-                <hr>
-                {% comment %} look better with card view {% endcomment %}
+            <div class="col mb-4">
+              <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{plan.title}}</h5>
+                      <p class="card-text">{{plan.feature_list}}</p>
+                      <h6>{{plan.price}} $<h6>
+                      <a class='btn btn-success'>Order</a>
+                   </div>
+                </div>
             </div>
-        {% endfor %}
-        
+            {% endfor %}
+          </div>
         <hr>
         <h1>Comments</h1>
         {% for comment in comments %}
@@ -66,7 +69,7 @@
         {% endif %}
   
     </div>
-    {% if request.user == gig.user %}
+    {% if request.user == gig.user  %}
     <div class="col-md-4 py-3">
       
       <div class="card">
@@ -75,7 +78,6 @@
           <b>Create a plan</b>
         </div>
         <div id="CreatePlanCard" class="card-body" style="display: none;">
-          {% comment %} we can handel this with jquery (form will show up when we click btn) {% endcomment %}
           <form  method="post" class='container' enctype="multipart/form-data">
             {% csrf_token %}
             {{p_form|crispy}}
