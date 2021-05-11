@@ -21,7 +21,7 @@
                       <h5 class="card-title">{{plan.title}}</h5>
                       <p class="card-text">{{plan.feature_list}}</p>
                       <h6>{{plan.price}} $<h6>
-                      <a class='btn btn-success'>Order</a>
+                      <a class='btn btn-success' href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
                    </div>
                 </div>
             </div>
