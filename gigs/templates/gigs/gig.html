@@ -94,8 +94,12 @@
         <div id="AddImageCard" class="card-body" style="display: none;">
           {% comment %} we can handel this with jquery (form will show up when we click btn) {% endcomment %}
           <form  method="post" class='container' enctype="multipart/form-data">
+          {% csrf_token %}
+            {{ formset.management_form }}
+            {% for form in formset %}
             {% csrf_token %}
-            {{p_form|crispy}}
+              {{ form }}
+            {% endfor %}
             <button type="submit" class='btn btn-success'>Add</button>
           </form>
         </div>
