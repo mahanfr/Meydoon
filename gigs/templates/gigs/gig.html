@@ -9,6 +9,23 @@
   <div {% if request.user == gig.user %}class="row"{% endif %}>
     <div {% if request.user == gig.user %}class='col-md-8'{% endif %}>
         <p align='center' class='display-4'>{{gig.title}}</p>
+          <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+            {% for p in photo %}
+              <div class="carousel-item {% if forloop.first %} active{% endif %}" data-interval="600">
+                <img src="{{p.image.url}}" class="d-block w-100" style ="height:350px" >
+              </div>
+            {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div                
         <p><h1>description : </h1>{{gig.description}}</p>
         <hr>
         

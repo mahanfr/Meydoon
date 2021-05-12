@@ -18,6 +18,7 @@ def gig_view(request, gig_id):
         comments = Comment.objects.filter(gig=gig)
         plans = Plan.objects.filter(gig=gig)
         img_formset = modelformset_factory(ShowcaseImage, form=ShowcaseForm, extra=5)
+        photo = ShowcaseImage.objects.filter(gig=gig)
 
         if request.method == "POST":
             formset = img_formset(request.POST, request.FILES, queryset=ShowcaseImage.objects.none())
@@ -56,6 +57,7 @@ def gig_view(request, gig_id):
             "p_form": p_form,
             "plans": plans,
             "formset": formset,
+            "photo": photo,
         },
     )
 
