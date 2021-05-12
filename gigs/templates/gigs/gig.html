@@ -12,7 +12,7 @@
           <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
             {% for p in photo %}
-              <div class="carousel-item {% if forloop.first %} active{% endif %}" data-interval="600">
+              <div class="carousel-item {% if forloop.first %} active{% endif %}" data-interval="5000">
                 <img src="{{p.image.url}}" class="d-block w-100" style ="height:350px" >
               </div>
             {% endfor %}
