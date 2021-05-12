@@ -1,8 +1,9 @@
 from .forms import GigCreationForm, ShowcaseForm, CommentForm, PlanForm
 from django.http.response import Http404
 from django.shortcuts import redirect, render
-from .models import Category, Comment, Gig, Plan
-from django.urls import reverse
+from .models import Comment, Gig, Plan, ShowcaseImage
+from django.forms import modelformset_factory
+
 
 # Create your views here.
 def gig_index(request):
@@ -16,8 +17,10 @@ def gig_view(request, gig_id):
         gig = Gig.objects.get(id=gig_id)
         comments = Comment.objects.filter(gig=gig)
         plans = Plan.objects.filter(gig=gig)
+        img_formset = modelformset_factory(ShowcaseImage, form=ShowcaseForm, extra=5)
 
         if request.method == "POST":
+            formset = img_formset(request.POST, request.FILES, queryset=ShowcaseImage.objects.none())
             p_form = PlanForm(request.POST)
             c_form = CommentForm(request.POST)
             if c_form.is_valid():
@@ -29,9 +32,16 @@ def gig_view(request, gig_id):
                 p_form.save(commit=False).gig = gig
                 p_form.save()
                 return redirect("gig_info", gig_id=gig.id)
+            if formset.is_valid():
+                for form in formset:
+                    form.save(commit=False).gig = gig
+                    form.save()
+                return redirect("gig_info", gig_id=gig.id)
+
         else:
             p_form = PlanForm()
             c_form = CommentForm()
+            formset = img_formset(queryset=ShowcaseImage.objects.none())
 
     except Gig.DoesNotExist:
         raise Http404("Gig not found")
@@ -39,7 +49,14 @@ def gig_view(request, gig_id):
     return render(
         request,
         "gigs/gig.html",
-        context={"gig": gig, "c_form": c_form, "comments": comments, "p_form": p_form, "plans": plans},
+        context={
+            "gig": gig,
+            "c_form": c_form,
+            "comments": comments,
+            "p_form": p_form,
+            "plans": plans,
+            "formset": formset,
+        },
     )
 
 
