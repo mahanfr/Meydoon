@@ -19,6 +19,8 @@ def gig_view(request, gig_id):
         plans = Plan.objects.filter(gig=gig)
         img_formset = modelformset_factory(ShowcaseImage, form=ShowcaseForm, extra=5)
         photo = ShowcaseImage.objects.filter(gig=gig)
+        if photo[0].image.name == "scimages/default.jpg" and len(photo) >= 2:  # delete default pic from image showcase
+            photo = photo[1:]
 
         if request.method == "POST":
             formset = img_formset(request.POST, request.FILES, queryset=ShowcaseImage.objects.none())
