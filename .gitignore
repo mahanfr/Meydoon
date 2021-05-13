@@ -5,3 +5,4 @@
 media
 db.sqlite3
 secrets.json
+_Frontend/node_modules
