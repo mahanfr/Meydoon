@@ -6,7 +6,8 @@ from django.utils.translation import gettext, gettext_lazy as _
 class Order(models.Model):
     STATE_CHOICES = (
         (1, _("accept")),
-        (2, _("decline")),
+        (2, _("pending")),
+        (3, _("decline")),
     )
     gig = models.ForeignKey("gigs.gig", on_delete=models.SET_NULL, null=True)
     plan_id = models.IntegerField(default=0)  # might get plan from web quary other than make it required
