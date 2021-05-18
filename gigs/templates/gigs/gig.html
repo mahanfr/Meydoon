@@ -63,7 +63,7 @@
             <h6>{{comment.body}}</h5>
             <p>{{comment.user.user_name}}<p>
             <p> <p class="badge badge-danger">new</p>  you have to confirm this <p>
-            <button type="submit" class='btn btn-success' onclick="$.ajax({type: 'POST',url: '{% url 'gig_info' gig.id %}',data: {'id' : {{comment.id}}}});">Approve</button>
+            <button type="submit" class='btn btn-success' onclick="$.ajax({type: 'POST',url: '{% url 'approve' %}',data: {'id' : {{comment.id}}}});">Approve</button>
             {% comment %} comment confirmation should add {% endcomment %}
             </div>
             {% endif %}

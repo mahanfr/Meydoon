@@ -1,4 +1,4 @@
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 from .forms import GigCreationForm, ShowcaseForm, CommentForm, PlanForm
 from django.http.response import Http404
 from django.shortcuts import redirect, render
@@ -96,3 +96,15 @@ def show_category(request, category_id):
         return render(request, "gigs/category.html", context=context)
     except Gig.DoesNotExist:
         raise Http404("there is no gig in this category")
+
+
+@csrf_exempt
+def comment_aprove(request):
+    if request.method == "POST":
+        if request.is_ajax:
+            cid = request.POST["id"]
+            x = Comment.objects.get(id=cid)
+            x.is_approved = True
+            print(cid)
+            x.save()
+            return redirect("gig_info", gig_id=x.gig.id)
