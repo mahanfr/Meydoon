@@ -58,6 +58,16 @@
 
 </style>
 {% csrf_token %}
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+            {% if message %}
+                    <div class="alert alert-danger alert-dismissible">
+                        {{ message }}
+                        <button type="button" data-dismiss="alert" class="close">&times;</button>
+                    </div>
+            {% endif %}
+        </div>
+    </div>
 <div class="container">
 <div class="row gutters">
 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -125,6 +135,7 @@
 		<div class="row gutters">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 				<h6 class="mt-3 mb-2 text-primary">Your Gig</h6>
+				<hr>
 			</div>
 			<div class='container row' style="margin:auto">
 					{% for gig in user_gig %}
@@ -134,6 +145,92 @@
 					{% endfor %}
 			</div>
 		</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mt-3 mb-2 text-primary">Pending Orders</h6>
+				<hr>
+			</div>
+			<div class='container row' style="margin:auto">
+				<div class="row">
+					{% for order in orders %}
+						{% if order.state == 2 %}
+					<div class="col mb-4">
+					<div class="card border">
+						<div class="card-body">
+							<h5 class="card-title">{{order.gig.title}}</h5>
+							<p class="card-text">{{order.order_message}}</p>
+							<h6>price offer : {{order.price_offer}}$<h6>
+							<p>For : {{order.customer.user_name}}<p>
+							<p>Deadline : {{order.deadline}}<p>
+							<p>Status : {{order.get_state_display}}<p>
+							<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
+							<button type="submit" class='btn btn-success' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'accept'}});">Accept</button>
+							<button type="submit" class='btn btn-danger' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'decline'}});">Decline</button>
+						</div>
+					</div>
+					</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mt-3 mb-2 text-primary">Accepted Orders</h6>
+				<hr>
+			</div>
+			<div class='container row' style="margin:auto">
+				<div class="row">
+					{% for order in orders %}
+						{% if order.state == 1 %}
+					<div class="col mb-4">
+					<div class="card border">
+						<div class="card-body">
+							<h5 class="card-title">{{order.gig.title}}</h5>
+							<p class="card-text">{{order.order_message}}</p>
+							<h6>price offer : {{order.price_offer}}$<h6>
+							<p>For : {{order.customer.user_name}}<p>
+							<p>Deadline : {{order.deadline}}<p>
+							<p>Status : {{order.get_state_display}}<p>
+							<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
+							<a class='btn btn-success' href="{% url 'deliver' %}?order={{order.id}}">Deliver</a>
+						</div>
+					</div>
+					</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mt-3 mb-2 text-primary">Your Orders</h6>
+				<hr>
+			</div>
+			<div class='container row' style="margin:auto">
+				<div class="row">
+					{% for order in orders %}
+						{% if order.customer == user %}
+					<div class="col mb-4">
+					<div class="card border">
+						<div class="card-body">
+							<h5 class="card-title">{{order.gig.title}}</h5>
+							<p class="card-text">{{order.order_message}}</p>
+							<h6>price offer : {{order.price_offer}}$<h6>
+							<p>For : {{order.customer.user_name}}<p>
+							<p>Deadline : {{order.deadline}}<p>
+							<p>Status : {{order.get_state_display}}<p>
+							<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
+						</div>
+					</div>
+					</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
 		<div class="row gutters">
 			<div class="row col-xl" >
 				<div class="text-right col">
