@@ -2,35 +2,93 @@
 {% load static %}
 {% block title %}Meydoon - Freelancing Platform{% endblock %}
 {% block body %}
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="background-color:#667478; height:400px">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner" style="text-align: center;">
-    <div class="carousel-item active" style="margin-top:10%">
-      <h1 class="display-4">Welcome</h1>
-      <p class="d-block w-100" >Welcome to our website we hope you find it helpful</p>
+<section class="mt-12 mx-auto">
+      
+  <svg width="500"height="500"viewBox="0 0 1000 1000"xmlns="http://www.w3.org/2000/svg"class="hidden lg:block absolute top-0 right-0 opacity-10" style="z-index: -20;">
+    <defs>
+      <pattern id="pattern"patternUnits="userSpaceOnUse"width="50"height="50"viewBox="0 0 100 100"fill="#e0e0e0">
+        <circle cx="50"cy="50"r="12.5"/>
+      </pattern>
+      
+      <clipPath id="shape2">
+        <path fill="currentColor" d="M759.5,560.5Q621,621,560.5,692Q500,763,364.5,767Q229,771,238.5,635.5Q248,500,310.5,436.5Q373,373,436.5,292.5Q500,212,599,257Q698,302,798,401Q898,500,759.5,560.5Z"></path>
+      </clipPath>
+    </defs>
+    <g  clip-path="url(#shape2)">
+      <path fill="url(#pattern)" d="M759.5,560.5Q621,621,560.5,692Q500,763,364.5,767Q229,771,238.5,635.5Q248,500,310.5,436.5Q373,373,436.5,292.5Q500,212,599,257Q698,302,798,401Q898,500,759.5,560.5Z" />
+    </g>
+  </svg>
+  <svg width="480"height="480"viewBox="0 0 1000 1000"xmlns="http://www.w3.org/2000/svg"class="hidden lg:block absolute bottom-0 left-0 opacity-10" style="z-index: -20;">
+    <defs>
+      <pattern id="pattern2"patternUnits="userSpaceOnUse"width="50"height="50"viewBox="0 0 100 100"fill="#f4f4f4">
+        <circle cx="50"cy="50"r="12.5"/>
+      </pattern>
+      <clipPath id="shape">
+        <path fill="currentColor" d="M801.5,653.5Q677,807,475,850Q273,893,203.5,696.5Q134,500,245,375Q356,250,470.5,301.5Q585,353,755.5,426.5Q926,500,801.5,653.5Z"></path>
+      </clipPath>
+    </defs>
+    <g  clip-path="url(#shape)">
+      <path fill="url(#pattern2)" d="M801.5,653.5Q677,807,475,850Q273,893,203.5,696.5Q134,500,245,375Q356,250,470.5,301.5Q585,353,755.5,426.5Q926,500,801.5,653.5Z" />
+    </g>
+  </svg>
+  <h1 class="mx-auto w-11/12 md:w-6/12 text-2xl sm:text-3xl text-center text-white">Skill based Freelancing Platform for digital creators</h1>
+  <div class="content items-center lg:flex mt-10 mx-10 lg:justify-between">
+    <div class="mx-auto lg:w-4/12 text-gray-300">
+      <div class="flex mb-5">
+        <div class="p-2 border-4 border-red-300 w-0 h-0 mr-3 rounded-3xl"></div>
+        <div>
+          <h3 class="text-lg font-bold">Frelancers in mind</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, at.</p>
+        </div>
+      </div>
+      <div class="flex mb-5">
+        <div class="p-2 border-4 border-yellow-300 w-0 h-0 mr-3 rounded-3xl"></div>
+        <div>
+          <h3 class="text-lg font-bold">Frelancers in mind</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, omnis!</p>
+        </div>
+      </div>
+      <div class="flex mb-5">
+        <div class="p-2 border-4 border-green-300 w-0 h-0 mr-3 rounded-3xl"></div>
+        <div>
+          <h3 class="text-lg font-bold">Frelancers in mind</h1>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, quod.</p>
+        </div>
+      </div>
     </div>
-    <div class="carousel-item" style="margin-top:10%">
-      <h1 class="display-4">What is Meydoon </h1>
-      <p class="d-block w-100">Meydoon is freelancering platform that help people to grt project and same shits</p>
-      <a class="btn btn-outline-dark" href="{%url 'gig_index'%}">Get project</a>
-    </div>
-    <div class="carousel-item" style="margin-top:10%">
-      <h1 class="display-4">Who we are ?</h1>
-      <p class="d-block w-100">We are students of KUT you can read more in About Page</p>
-      <a class="btn btn-outline-dark" href="{% url 'about' %}">About Us</a>
+    <div class="hidden lg:block lg:bg-gray-500 w-0.5 h-60 opacity-60"></div>
+    <div class="block lg:hidden bg-gray-500 w-60 h-0.5 opacity-60 mx-auto my-10"></div>
+    <div class="mx-auto lg:w-4/12 text-gray-300 lg:float-left">
+      <div class="flex mb-5">
+        <div class="p-2 border-4 border-red-300 w-0 h-0 mr-3 rounded-3xl"></div>
+        <div>
+          <h3 class="text-lg font-bold">Frelancers in mind</h1>
+          <p class="text-md">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo, quaerat?</p>
+        </div>
+      </div>
+      <div class="flex mb-5">
+        <div class="p-2 border-4 border-yellow-300 w-0 h-0 mr-3 rounded-3xl"></div>
+        <div>
+          <h3 class="text-lg font-bold">Frelancers in mind</h1>
+          <p class="text-md">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, adipisci.</p>
+        </div>
+      </div>
+      <div class="flex mb-5">
+        <div class="p-2 border-4 border-green-300 w-0 h-0 mr-3 rounded-3xl"></div>
+        <div>
+          <h3 class="text-lg font-bold">Frelancers in mind</h1>
+          <p class="text-md">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, iure.</p>
+        </div>
+      </div>
     </div>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+  <div class="flex justify-center mt-10">
+    <div class="flex rounded-full bg-white bg-opacity-100  items-center">
+      <input class="rounded-full col-auto bg-transparent w-80 mx-auto px-4 mr-5 py-2 focus:outline-none" placeholder="Search the best programmer">
+      <svg width="20" height="20" fill="currentColor" class="text-gray-500 mx-4">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+      </svg>
+    </div>
+  </div>
+</section>
 {%  endblock %}

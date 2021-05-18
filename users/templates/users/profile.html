@@ -1,150 +1,89 @@
 {% extends "pages/base.html" %}
 {% block title %}{{user.user_name}} Profile{% endblock %}
 {% block body %}
-<style>
-.account-settings .user-profile {
-    margin: 0 0 1rem 0;
-    padding-bottom: 1rem;
-    text-align: center;
-}
-.account-settings .user-profile .user-avatar {
-    margin: 0 0 1rem 0;
-}
-.account-settings .user-profile .user-avatar img {
-    width: 90px;
-    height: 90px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    border-radius: 100px;
-}
-.account-settings .user-profile h5.user-name {
-    margin: 0 0 0.5rem 0;
-}
-.account-settings .user-profile h6.user-email {
-    margin: 0;
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: #9fa8b9;
-}
-.account-settings .about {
-    margin: 2rem 0 0 0;
-    text-align: center;
-}
-.account-settings .about h5 {
-    margin: 0 0 15px 0;
-    color: #007ae1;
-}
-.account-settings .about p {
-    font-size: 0.825rem;
-}
-.form-control {
-    border: 1px solid #cfd1d8;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    font-size: .825rem;
-    background: #ffffff;
-    color: #2e323c;
-}
-
-.card {
-    background: #ffffff;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 0;
-    margin-bottom: 1rem;
-}
-
-</style>
 {% csrf_token %}
-    <div class="row mt-3 mb-3">
-        <div class="col-12">
-            {% if message %}
-                    <div class="alert alert-danger alert-dismissible">
-                        {{ message }}
-                        <button type="button" data-dismiss="alert" class="close">&times;</button>
-                    </div>
-            {% endif %}
-        </div>
+<div class="row my-3">
+    <div class="col-12">
+        {% if message %}
+                <div class="alert alert-danger alert-dismissible">
+                    {{ message }}
+                    <button type="button" data-dismiss="alert" class="close">&times;</button>
+                </div>
+        {% endif %}
     </div>
-<div class="container">
-<div class="row gutters">
-<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-<div class="card h-100">
-	<div class="card-body">
-		<div class="account-settings">
-			<div class="user-profile">
-				<div class="user-avatar">
-					<img src="{{user.profile.profile_pic.url}}" >
-				</div>
-				<h5 class="user-name">{{user.user_name}}</h5>
-				<h6 class="user-email">{{user.email}}</h6>
-			</div>
-			<div class="about">
-				<h5>About</h5>
-				<p>{{user.profile.bio}}</p>
-			</div>
-		</div>
-	</div>
 </div>
-</div>
-<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-<div class="card h-100">
-	<div class="card-body">
-		<div class="row gutters">
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<h6 class="mb-2 text-primary">Personal info</h6>
-			</div>
-			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-				<div class="form-group">
-					<label for="fullName">Fullname:</label>
-					<p>{{user.first_name}} {{user.last_name}}</p>
-				</div>
-			</div>
-			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-				<div class="form-group">
-					<label for="fullName">National ID:</label>
-					<p>{{user.profile.national_id}}</p>
-				</div>
-			</div>
-			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-				<div class="form-group">
-					<label for="phone">Phone Number:</label>
-					<p>{{user.phone_number}}</p>
-				</div>
-			</div>
-			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-				<div class="form-group">
-					<label for="eMail">Email:</label>
-					<p>{{user.email}}</p>
-				</div>
-			</div>
-		</div>
-		 <div class="row gutters">
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<h6 class="mt-3 mb-2 text-primary">Address</h6>
-			</div>
-			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-				<div class="form-group">
-					<label>{{user.profile.address}}</label>
-					
-				</div>
-			</div>
-		</div> 
-		<div class="row gutters">
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<h6 class="mt-3 mb-2 text-primary">Your Gig</h6>
-				<hr>
-			</div>
-			<div class='container row' style="margin:auto">
-					{% for gig in user_gig %}
-					<div class="container col-sm-4 rounded" style="margin:10px 10px 10px 10px;">
-						<a href = {%url "gig_info" gig.id %}><img src={{gig.get_showcase.url}} class="rounded"style="width:200px;height:100px"></a>
-					</div>
-					{% endfor %}
-			</div>
-		</div>
+<div class="text-white mx-5 md:mx-20">
+  <div class="gap-4 md:flex flex-row">
+    <div class="bg-brand-card bg-opacity-20 rounded-3xl text-center px-10 py-5">
+      <img class="mx-auto nav-profile-image" width="100px" height="100px" src="{{user.profile.profile_pic.url}}" alt="{{user.user_name}} profile picture">
+      <h5 class="mt-3">{{user.user_name}}</h5>
+      <h6 class="mt-1">{{user.email}}</h6>
+      <div class="mx-auto mt-3 w-60">
+        <h5>About</h5>
+        <!-- <p>{{user.profile.bio}}</p> -->
+        <p class="text-brand-textColor2 text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis illum eaque, repellat dolor ex iste hic facere eveniet? Assumenda, expedita?</p>
+      </div>
+    </div>
+    <div class="mt-5 md:mt-0 flex flex-col flex-grow justify-between bg-brand-card bg-opacity-20 rounded-3xl px-10 py-5">
+      <div>
+        <h6 class="mb-2 text-primary text-lg font-bold">Personal info</h6>
+        <div class="flex">
+          <label for="fullName">Fullname:</label>
+          <p class="mx-3">{{user.first_name}} {{user.last_name}}</p>
+        </div>
+        <div class="flex">
+          <label for="fullName">National ID:</label>
+          <p class="mx-3">{{user.profile.national_id}}</p>
+        </div>
+        <div class="flex">
+          <label for="phone">Phone Number:</label>
+          <p class="mx-3">{{user.phone_number}}</p>
+        </div>
+        <div class="flex">
+          <label for="phone">Address:</label>
+          <address class="mx-3">{{user.profile.address}}</address>
+        </div>
+      </div>
+      <div class="flex">
+        <a class="bg-green-800 py-2 px-3 mr-2 rounded-sm" href="{% url 'editprofile' %}">Edit Profile</a>
+        <a class="bg-blue-800 py-2 px-3 mr-2 rounded-sm" href="{% url 'create_gig' %}">New Gig</a>
+      </div>
+      
+    </div>
+  </div>
+  <div class="md:flex mt-5">
+    <div class="mx-3 flex-grow">
+      <h6 class="mt-3 mb-2 text-primary">Your Gigs</h6>
+      <hr>
+      <div class="">
+        {% for gig in user_gig %}
+        <div class="flex justify-between px-2 py-3 mt-3 bg-brand-card bg-opacity-20 rounded-lg">
+          <h4 class="text-lg font-bold">{{gig.title}}</h4>
+          <div class="flex">
+            <h4 class="text-lg font-bold">{{gig.category}}</h4>
+            <h4 class="text-lg font-bold">{{gig.sub_category}}</h4>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="mx-3 flex-grow">
+      <h6 class="mt-3 mb-2 text-primary">Messages</h6>
+      <hr>
+      <div class="">
+        {% for gig in user_gig %}
+        <div class="flex justify-between px-2 py-3 mt-3 bg-brand-card bg-opacity-20 rounded-lg">
+          <h4 class="text-lg font-bold">{{gig.title}}</h4>
+          <div class="flex">
+            <h4 class="text-lg font-bold">{{gig.category}}</h4>
+            <h4 class="text-lg font-bold">{{gig.sub_category}}</h4>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+		
 		<div class="row gutters">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 				<h6 class="mt-3 mb-2 text-primary">Pending Orders</h6>
@@ -163,10 +102,12 @@
 							<p>For : {{order.customer.user_name}}<p>
 							<p>Deadline : {{order.deadline}}<p>
 							<p>Status : {{order.get_state_display}}<p>
-							<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
+							{% if order.file_example %}
+								<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
+							{% endif %}
 							<button type="submit" class='btn btn-success' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'accept'}});">Accept</button>
 							<button type="submit" class='btn btn-danger' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'decline'}});">Decline</button>
-						</div>
+						</div> 
 					</div>
 					</div>
 						{% endif %}
@@ -192,7 +133,9 @@
 							<p>For : {{order.customer.user_name}}<p>
 							<p>Deadline : {{order.deadline}}<p>
 							<p>Status : {{order.get_state_display}}<p>
-							<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
+							{% if order.file_example %}
+								<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
+							{% endif %}
 							<a class='btn btn-success' href="{% url 'deliver' %}?order={{order.id}}">Deliver</a>
 						</div>
 					</div>
@@ -221,23 +164,14 @@
 							<p>For : {{order.customer.user_name}}<p>
 							<p>Deadline : {{order.deadline}}<p>
 							<p>Status : {{order.get_state_display}}<p>
-							<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
+							{% if order.file_example %}
+								<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
+							{% endif %}
 						</div>
 					</div>
 					</div>
 						{% endif %}
 					{% endfor %}
-				</div>
-			</div>
-		</div>
-
-		<div class="row gutters">
-			<div class="row col-xl" >
-				<div class="text-right col">
-					<button type="button" id="submit" name="submit" class="btn btn-primary"  onclick="window.location.href='{%url 'editprofile'%}'">Edit_profile</button>
-				</div>
-				<div class="text-right col">
-					<button type="button" id="submit" name="submit" class="btn btn-primary"  onclick="window.location.href='{%url 'create_gig'%}'">Add_gig</button>
 				</div>
 			</div>
 		</div>
