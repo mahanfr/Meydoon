@@ -62,7 +62,8 @@
             <h5>{{comment.title}}</h3>
             <h6>{{comment.body}}</h5>
             <p>{{comment.user.user_name}}<p>
-            <p> *new  you have to confirm this <p> 
+            <p> <p class="badge badge-danger">new</p>  you have to confirm this <p>
+            <button type="submit" class='btn btn-success' onclick="$.ajax({type: 'POST',url: '{% url 'gig_info' gig.id %}',data: {'id' : {{comment.id}}}});">Approve</button>
             {% comment %} comment confirmation should add {% endcomment %}
             </div>
             {% endif %}
@@ -111,7 +112,7 @@
         <div id="AddImageCard" class="card-body" style="display: none;">
           {% comment %} we can handel this with jquery (form will show up when we click btn) {% endcomment %}
           <form  method="post" class='container' enctype="multipart/form-data">
-          {% csrf_token %}
+          {{csrftoken}}
             {{ formset.management_form }}
             {% for form in formset %}
             {% csrf_token %}
@@ -159,5 +160,33 @@
       x.style.display = "none";
     }
   }
+</script>
+<script>
+function getCookie(name)
+{
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+$.ajaxSetup({ 
+     beforeSend: function(xhr, settings) {
+         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+             // Only send the token to relative URLs i.e. locally.
+             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+         }
+     } 
+});
 </script>
 {% endblock %}

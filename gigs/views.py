@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from .forms import GigCreationForm, ShowcaseForm, CommentForm, PlanForm
 from django.http.response import Http404
 from django.shortcuts import redirect, render
@@ -39,6 +40,13 @@ def gig_view(request, gig_id):
                 for form in formset:
                     form.save(commit=False).gig = gig
                     form.save()
+                return redirect("gig_info", gig_id=gig.id)
+            if request.is_ajax:
+                cid = request.POST["id"]
+                x = Comment.objects.get(id=cid)
+                x.is_approved = True
+                print(cid)
+                x.save()
                 return redirect("gig_info", gig_id=gig.id)
 
         else:
