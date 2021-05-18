@@ -102,11 +102,9 @@ def show_category(request, category_id):
 @csrf_exempt
 @require_POST
 def comment_aprove(request):
-    if request.method == "POST":
-        if request.is_ajax:
-            cid = request.POST["id"]
-            x = Comment.objects.get(id=cid)
-            x.is_approved = True
-            print(cid)
-            x.save()
-            return redirect("gig_info", gig_id=x.gig.id)
+    cid = request.POST["id"]
+    x = Comment.objects.get(id=cid)
+    x.is_approved = True
+    print(cid)
+    x.save()
+    return redirect("gig_info", gig_id=x.gig.id)
