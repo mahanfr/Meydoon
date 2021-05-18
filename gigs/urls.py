@@ -7,4 +7,5 @@ urlpatterns = [
     path("create_gig", views.create_gig, name="create_gig"),
     path("category/<int:category_id>", views.show_category, name="category"),
     path("orders/", include("orders.urls")),
+    path("approve/", views.comment_aprove, name="approve"),
 ]
