@@ -1,4 +1,5 @@
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from .forms import GigCreationForm, ShowcaseForm, CommentForm, PlanForm
 from django.http.response import Http404
 from django.shortcuts import redirect, render
@@ -99,6 +100,7 @@ def show_category(request, category_id):
 
 
 @csrf_exempt
+@require_POST
 def comment_aprove(request):
     if request.method == "POST":
         if request.is_ajax:
