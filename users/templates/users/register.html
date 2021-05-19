@@ -2,12 +2,12 @@
 {% block title %}Sign Up - Meydoon{% endblock %}
 {% block body %}
     {% load crispy_forms_tags %}
-    
+    {% load tailwind_filters %}
     <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container-sm'>
         <h1 class = 'display-4' style='text-align:center'> Sign Up </h1>
         {% csrf_token %}
         {{ form|crispy}}
-    <button type="submit" class='btn btn-success'>Sign up</button>
+    <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Sign up</button>
     <p>Already have an Account <a href="{% url 'login' %}">Login</a> Now</p>
     </form>
 

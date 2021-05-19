@@ -21,7 +21,7 @@
       <div class="mx-auto mt-3 w-60">
         <h5>About</h5>
         <!-- <p>{{user.profile.bio}}</p> -->
-        <p class="text-brand-textColor2 text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis illum eaque, repellat dolor ex iste hic facere eveniet? Assumenda, expedita?</p>
+        <p class="text-brand-textColor2 text-sm">{{user.profile.bio}}</p>
       </div>
     </div>
     <div class="mt-5 md:mt-0 flex flex-col flex-grow justify-between bg-brand-card bg-opacity-20 rounded-3xl px-10 py-5">
@@ -105,8 +105,8 @@
 							{% if order.file_example %}
 								<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
 							{% endif %}
-							<button type="submit" class='btn btn-success' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'accept'}});">Accept</button>
-							<button type="submit" class='btn btn-danger' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'decline'}});">Decline</button>
+							<button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'accept'}});">Accept</button>
+							<button type="submit" class='bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'decline'}});">Decline</button>
 						</div> 
 					</div>
 					</div>
@@ -136,7 +136,7 @@
 							{% if order.file_example %}
 								<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
 							{% endif %}
-							<a class='btn btn-success' href="{% url 'deliver' %}?order={{order.id}}">Deliver</a>
+							<a class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' href="{% url 'deliver' %}?order={{order.id}}">Deliver</a>
 						</div>
 					</div>
 					</div>

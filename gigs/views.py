@@ -105,6 +105,5 @@ def comment_aprove(request):
     cid = request.POST["id"]
     x = Comment.objects.get(id=cid)
     x.is_approved = True
-    print(cid)
     x.save()
     return redirect("gig_info", gig_id=x.gig.id)

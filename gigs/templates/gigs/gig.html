@@ -5,6 +5,7 @@
 {% block title %}{{gig}}{% endblock %}
 {% block body %}
 {% load crispy_forms_tags %}
+{% load tailwind_filters %}
 <div class="container" style="max-width: 90%;">
   <div {% if request.user == gig.user %}class="row"{% endif %}>
     <div {% if request.user == gig.user %}class='col-md-8'{% endif %}>
@@ -38,7 +39,7 @@
                       <h5 class="card-title">{{plan.title}}</h5>
                       <p class="card-text">{{plan.feature_list}}</p>
                       <h6>{{plan.price}} $<h6>
-                      <a class='btn btn-success' href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
+                      <a class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
                    </div>
                 </div>
             </div>
@@ -63,7 +64,7 @@
             <h6>{{comment.body}}</h5>
             <p>{{comment.user.user_name}}<p>
             <p> <p class="badge badge-danger">new</p>  you have to confirm this <p>
-            <button type="submit" class='btn btn-success' onclick="$.ajax({type: 'POST',url: '{% url 'approve' %}',data: {'id' : {{comment.id}}}});">Approve</button>
+            <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="$.ajax({type: 'POST',url: '{% url 'approve' %}',data: {'id' : {{comment.id}}}});">Approve</button>
             {% comment %} comment confirmation should add {% endcomment %}
             </div>
             {% endif %}
@@ -74,7 +75,7 @@
             <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
             {% csrf_token %}
             {{c_form|crispy}}
-                <button type="submit" class='btn btn-success'>Confirm</button>
+                <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Confirm</button>
             </form>
             {% else %}
             <p>You have to <a href="{% url 'login' %}?next_page={{request.path}}">login<a> to your account first<p>   
@@ -82,7 +83,7 @@
         {% endif %}
   
         {% if user == gig.user %}
-        <a class='btn btn-primary'>Edit</a>
+        <a class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Edit</a>
         {% comment %} edit gig {% endcomment %}
         {% endif %}
   
@@ -99,7 +100,7 @@
           <form  method="post" class='container' enctype="multipart/form-data">
             {% csrf_token %}
             {{p_form|crispy}}
-            <button type="submit" class='btn btn-success'>Add</button>
+            <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Add</button>
           </form>
         </div>
       </div>
@@ -118,7 +119,7 @@
             {% csrf_token %}
               {{ form }}
             {% endfor %}
-            <button type="submit" class='btn btn-success'>Add</button>
+            <button type="submit"class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Add</button>
           </form>
         </div>
       </div>

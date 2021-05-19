@@ -3,11 +3,12 @@
 {% block body %}
 {% csrf_token %}
 	{% load crispy_forms_tags %}
+    {% load tailwind_filters %}
     <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
         <h1 class = 'display-4' style='text-align:center ; padding-bottom:50px'>Order</h1>
         {% csrf_token %}
         {{ order_form|crispy}}
-    <button type="submit" class='btn btn-success' onclick="window.location.href='{%url 'profile'%}'">Confirm</button>
+    <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="window.location.href='{%url 'profile'%}'">Confirm</button>
     
     </form>
 

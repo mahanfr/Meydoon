@@ -41,8 +41,8 @@
               <a class="mx-1 px-1 text-sm" href="#"> {{user.wallet.amount}} $</a>
               <a class="mx-1 px-1 text-sm" href="{% url 'logout' %}">Logout</a>
             {% else %}
-              <a class="mx-1 px-1 text-sm" href="">Login</a>
-              <a class="mx-1 px-4 text-sm py-2 bg-blue-600 rounded-full" href="">Register</a>
+              <a class="mx-1 px-1 text-sm" href="{% url 'login' %}">Login</a>
+              <a class="mx-1 px-4 text-sm py-2 bg-blue-600 rounded-full" href="{% url 'register' %}">Register</a>
             {% endif %}
           </div>
         </div>
