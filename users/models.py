@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
-
+from PIL import Image
+import os
+import uuid
 
 # This is a class for managing our custom user authentication
 class CustomUserManager(BaseUserManager):
@@ -52,11 +54,15 @@ class User(AbstractBaseUser,PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone_number','user_name']
 
+def get_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('profile_pics', filename)
 
 # Addition to user model for more inforamtion about user
 class Profile(models.Model):
     user = models.OneToOneField('users.User', on_delete = models.CASCADE)
-    profile_pic = models.ImageField(upload_to='profile_pics',default='profile_pics/default.jpg') #save profile pic at pics folder
+    profile_pic = models.ImageField(upload_to=get_file_path,default='profile_pics/default.jpg',blank=True,null=True) #save profile pic at pics folder
     national_id = models.CharField(max_length=20,null=True,blank=True)
     bank_number = models.CharField(max_length=50,null=True,blank=True)
     address = models.CharField(max_length=400, null=True, blank=True)
@@ -67,4 +73,18 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.user_name} Profile'
-        
+    
+    # RESET the default picture and resize uploaded images
+    def save(self,*args, **kwargs):
+        if not self.profile_pic:
+            self.profile_pic = 'profile_pics/default.jpg'
+        super().save(*args, **kwargs)
+        if self.profile_pic and not 'default.jpg' in self.profile_pic.path:
+            img = Image.open(self.profile_pic.path)
+
+            if img.height>512 or img.width>512:
+                output_size=(512,512)
+                img.thumbnail(output_size)
+                img.save(self.profile_pic.path)
+
+            

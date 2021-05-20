@@ -37,7 +37,11 @@
         <div class="hidden lg:flex">
           <div class="flex items-center">
             {% if user.is_authenticated %}
-              <a href="{% url 'profile' %}"><img class="mx-1 p-1 nav-profile-image" src="{{user.profile.profile_pic.url}}" alt="media/profile_pics/default.jpg" width="40px" height="40px"></a>
+              <a href="{% url 'profile' %}">
+                <img class="mx-1 p-1 nav-profile-image w-10 h-10" 
+                src="{{user.profile.profile_pic.url}}" 
+                alt="Profile image" width="40px" height="40px">
+              </a>
               <a class="mx-1 px-1 text-sm" href="#"> {{user.wallet.amount}} $</a>
               <a class="mx-1 px-1 text-sm" href="{% url 'logout' %}">Logout</a>
             {% else %}
@@ -50,42 +54,7 @@
     </div>
     {% block body %}
     {% endblock %}
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-    <footer class="bg-dark text-center text-white footer">
-      <!-- Grid container -->
-      <div class="container p-4 pb-0">
-        <!-- Section: Social media -->
-        <section class="mb-4">
-          <!-- Twitter -->
-          <a class="btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button"
-            ><i class="bi bi-twitter rounded"></i
-          ></a>
-  
-          <!-- Google -->
-          <a class="btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button"
-            ><i class="bi bi-google rounded-circle"></i
-          ></a>
-  
-          <!-- Instagram -->
-          <a class="btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button"
-            ><i class="bi bi-instagram "></i
-          ></a>
-  
-          <!-- Linkedin -->
-          <a class="btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button"
-            ><i class="bi bi-linkedin"></i
-          ></a>
-  
-          <!-- Github -->
-          <a class="btn btn-outline-light rounded-circle" href="https://github.com/HamzehMahmoudi/Meydoon" role="button"
-            ><i class="bi-github " role="img" aria-label="GitHub"></i
-          ></a>
-        </section>
-        <!-- Section: Social media -->
-      </div>
-      <!-- Grid container -->
-  
+    <footer class="mt-10">
       <!-- Copyright -->
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         © {{year}} Copyright
