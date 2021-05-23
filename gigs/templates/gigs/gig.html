@@ -39,7 +39,8 @@
                       <h5 class="card-title">{{plan.title}}</h5>
                       <p class="card-text">{{plan.feature_list}}</p>
                       <h6>{{plan.price}} $<h6>
-                      <a class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
+                      <a class='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
+                      <a class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' href="{% url 'edit_plan' plan.id %}">Edit</a>
                    </div>
                 </div>
             </div>

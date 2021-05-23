@@ -53,3 +53,13 @@ class GigEditForm(forms.ModelForm):
         model = Gig
         fields = ["title", "description", "experience"]
         exclude = ["user"]
+
+class PlanEditForm(forms.ModelForm):
+    """
+    Form for edit Plans
+    """
+
+    class Meta:
+        model = Plan
+        fields = ["title", "price", "feature_list"]
+        exclude = ["gig"]
