@@ -1,7 +1,7 @@
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from .forms import GigCreationForm, GigEditForm, ShowcaseForm, CommentForm, PlanForm
+from .forms import GigCreationForm, GigEditForm, ShowcaseForm, CommentForm, PlanForm, PlanEditForm
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from .models import Comment, Gig, Plan, ShowcaseImage
@@ -120,3 +120,15 @@ def edit_gig(request, gigid):
     else:
         form = GigEditForm(instance=gig)
     return render(request, "gigs/gig_edit.html", context={"form": form, "gig": gig})
+
+
+def edit_plan(request, planid):
+    plan = Plan.objects.get(id=planid)
+    if request.method == "POST":
+        form = PlanEditForm(request.POST, instance=plan)
+        if form.is_valid():
+            form.save()
+            return redirect("gig_info", gig_id=plan.gig.id)
+    else:
+        form = PlanEditForm(instance=plan)
+    return render(request, "gigs/edit_plan.html", context={"form": form, "plan": plan})

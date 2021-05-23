@@ -9,4 +9,5 @@ urlpatterns = [
     path("orders/", include("orders.urls")),
     path("approve/", views.comment_aprove, name="approve"),
     path("<int:gigid>/edit", views.edit_gig, name="edit_gig"),
+    path("plan/<int:planid>/edit", views.edit_plan, name="edit_plan"),
 ]
