@@ -14,6 +14,9 @@ class OrderForm(forms.ModelForm):
 
 
 class DeliverForm(forms.ModelForm):
+    message = forms.CharField(max_length=20, required=True)
+    file = forms.FileField(required=True)
+
     class Meta:
         model = Deliver
         fields = ["message", "file"]

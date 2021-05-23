@@ -17,6 +17,7 @@ class ShowcaseForm(forms.ModelForm):
     """
     Form for add Gig
     """
+
     class Meta:
         model = ShowcaseImage
         fields = ["image"]
@@ -41,3 +42,14 @@ class PlanForm(forms.ModelForm):
         model = Plan
         fields = ["title", "price", "feature_list"]
         exclude = ["gig"]
+
+
+class GigEditForm(forms.ModelForm):
+    """
+    Form for edit Gig
+    """
+
+    class Meta:
+        model = Gig
+        fields = ["title", "description", "experience"]
+        exclude = ["user"]

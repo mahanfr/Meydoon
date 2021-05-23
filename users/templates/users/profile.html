@@ -62,6 +62,7 @@
           <div class="flex">
             <h4 class="text-lg font-bold">{{gig.category}}</h4>
             <h4 class="text-lg font-bold">{{gig.sub_category}}</h4>
+			<a href="{% url 'gig_info' gig.id %}"> detailes >> </a>
           </div>
         </div>
         {% endfor %}
