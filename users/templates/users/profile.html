@@ -1,186 +1,97 @@
-{% extends "pages/base.html" %}
-{% block title %}{{user.user_name}} Profile{% endblock %}
-{% block body %}
-{% csrf_token %}
-<div class="row my-3">
-    <div class="col-12">
-        {% if message %}
-                <div class="alert alert-danger alert-dismissible">
-                    {{ message }}
-                    <button type="button" data-dismiss="alert" class="close">&times;</button>
-                </div>
-        {% endif %}
-    </div>
-</div>
-<div class="text-white mx-5 md:mx-20">
-  <div class="gap-4 md:flex flex-row">
-    <div class="bg-brand-card bg-opacity-20 rounded-3xl text-center px-10 py-5">
-      <img class="mx-auto nav-profile-image w-20 h-20" width="100px" height="100px" src="{{user.profile.profile_pic.url}}" alt="{{user.user_name}} profile picture">
-      <h5 class="mt-3">{{user.user_name}}</h5>
-      <h6 class="mt-1">{{user.email}}</h6>
-      <div class="mx-auto mt-3 w-60">
-        <h5>About</h5>
-        <!-- <p>{{user.profile.bio}}</p> -->
-        <p class="text-brand-textColor2 text-sm">{{user.profile.bio}}</p>
-      </div>
-    </div>
-    <div class="mt-5 md:mt-0 flex flex-col flex-grow justify-between bg-brand-card bg-opacity-20 rounded-3xl px-10 py-5">
-      <div>
-        <h6 class="mb-2 text-primary text-lg font-bold">Personal info</h6>
-        <div class="flex">
-          <label for="fullName">Fullname:</label>
-          <p class="mx-3">{{user.first_name}} {{user.last_name}}</p>
-        </div>
-        <div class="flex">
-          <label for="fullName">National ID:</label>
-          <p class="mx-3">{{user.profile.national_id}}</p>
-        </div>
-        <div class="flex">
-          <label for="phone">Phone Number:</label>
-          <p class="mx-3">{{user.phone_number}}</p>
-        </div>
-        <div class="flex">
-          <label for="phone">Address:</label>
-          <address class="mx-3">{{user.profile.address}}</address>
-        </div>
-      </div>
-      <div class="flex">
-        <a class="bg-green-800 py-2 px-3 mr-2 rounded-sm" href="{% url 'editprofile' %}">Edit Profile</a>
-        <a class="bg-blue-800 py-2 px-3 mr-2 rounded-sm" href="{% url 'create_gig' %}">New Gig</a>
-      </div>
-      
-    </div>
-  </div>
-  <div class="md:flex mt-5">
-    <div class="mx-3 flex-grow">
-      <h6 class="mt-3 mb-2 text-primary">Your Gigs</h6>
-      <hr>
-      <div class="">
-        {% for gig in user_gig %}
-        <div class="flex justify-between px-2 py-3 mt-3 bg-brand-card bg-opacity-20 rounded-lg">
-          <h4 class="text-lg font-bold">{{gig.title}}</h4>
-          <div class="flex">
-            <h4 class="text-lg font-bold">{{gig.category}}</h4>
-            <h4 class="text-lg font-bold">{{gig.sub_category}}</h4>
-			<a href="{% url 'gig_info' gig.id %}"> detailes >> </a>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="mx-3 flex-grow">
-      <h6 class="mt-3 mb-2 text-primary">Messages</h6>
-      <hr>
-      <div class="">
-        {% for gig in user_gig %}
-        <div class="flex justify-between px-2 py-3 mt-3 bg-brand-card bg-opacity-20 rounded-lg">
-          <h4 class="text-lg font-bold">{{gig.title}}</h4>
-          <div class="flex">
-            <h4 class="text-lg font-bold">{{gig.category}}</h4>
-            <h4 class="text-lg font-bold">{{gig.sub_category}}</h4>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-		
-		<div class="row gutters">
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<h6 class="mt-3 mb-2 text-primary">Pending Orders</h6>
-				<hr>
-			</div>
-			<div class='container row' style="margin:auto">
-				<div class="row">
-					{% for order in orders %}
-						{% if order.state == 2 %}
-					<div class="col mb-4">
-					<div class="card border">
-						<div class="card-body">
-							<h5 class="card-title">{{order.gig.title}}</h5>
-							<p class="card-text">{{order.order_message}}</p>
-							<h6>price offer : {{order.price_offer}}$<h6>
-							<p>For : {{order.customer.user_name}}<p>
-							<p>Deadline : {{order.deadline}}<p>
-							<p>Status : {{order.get_state_display}}<p>
-							{% if order.file_example %}
-								<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
-							{% endif %}
-							<button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'accept'}});">Accept</button>
-							<button type="submit" class='bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="$.ajax({type: 'POST',url: '{% url 'profile' %}',data: {'id' : {{order.id}}, 'act':'decline'}});">Decline</button>
-						</div> 
-					</div>
-					</div>
-						{% endif %}
-					{% endfor %}
-				</div>
-			</div>
+{% load static %}
+<!DOCTYPE html>
+<html id="master" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/d6eba2497b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tailwind.css' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'pages/fav/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'pages/fav/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'pages/fav/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'pages/fav/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'pages/fav/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#F5F5F5">
+    <title>Dashboard</title>
+</head>
+<body class="bg-brand-background dark:bg-brand-background-dark" onload="onload()">
+    <div class="md:flex flex-col md:flex-row md:min-h-screen w-full">
+		<div class="flex flex-col w-full md:w-64 text-gray-700 bg-white dark:text-gray-200 dark:bg-gray-800 flex-shrink-0">
+		  <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
+			<a href="{% url 'index' %}" class="text-lg mx-auto font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Meydoon</a>
+			<button class="rounded-lg md:hidden rounded-lg focus:outline-none focus:shadow-outline">
+			  <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+				<path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+				<path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+			  </svg>
+			</button>
+		  </div>
+		  <nav class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
+			<a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Blog</a>
+			<a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Portfolio</a>
+			<a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">About</a>
+			<a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
+		  </nav>
 		</div>
-		<div class="row gutters">
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<h6 class="mt-3 mb-2 text-primary">Accepted Orders</h6>
-				<hr>
-			</div>
-			<div class='container row' style="margin:auto">
-				<div class="row">
-					{% for order in orders %}
-						{% if order.state == 1 %}
-					<div class="col mb-4">
-					<div class="card border">
-						<div class="card-body">
-							<h5 class="card-title">{{order.gig.title}}</h5>
-							<p class="card-text">{{order.order_message}}</p>
-							<h6>price offer : {{order.price_offer}}$<h6>
-							<p>For : {{order.customer.user_name}}<p>
-							<p>Deadline : {{order.deadline}}<p>
-							<p>Status : {{order.get_state_display}}<p>
-							{% if order.file_example %}
-								<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
-							{% endif %}
-							<a class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' href="{% url 'deliver' %}?order={{order.id}}">Deliver</a>
-						</div>
-					</div>
-					</div>
-						{% endif %}
-					{% endfor %}
-				</div>
-			</div>
-		</div>
+		<main class=" w-full ">
+			<nav class="flex justify-end items-center my-3 mx-5">
+				<i id="ThemeToggle"class="mx-1 px-1 fas fa-toggle-on text-2xl" style="color:#333333;" onclick="changeTheme()"></i>
+				<a class="mx-1 px-1 text-brand-textColor3 dark:text-brand-textColor1" href="#"><i class="fas fa-search"></i></a>
+				<div>
+					<div class="bg-red-100 rounded-full w-0.5 h-0.5">
 
-		<div class="row gutters">
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<h6 class="mt-3 mb-2 text-primary">Your Orders</h6>
-				<hr>
-			</div>
-			<div class='container row' style="margin:auto">
-				<div class="row">
-					{% for order in orders %}
-						{% if order.customer == user %}
-					<div class="col mb-4">
-					<div class="card border">
-						<div class="card-body">
-							<h5 class="card-title">{{order.gig.title}}</h5>
-							<p class="card-text">{{order.order_message}}</p>
-							<h6>price offer : {{order.price_offer}}$<h6>
-							<p>For : {{order.customer.user_name}}<p>
-							<p>Deadline : {{order.deadline}}<p>
-							<p>Status : {{order.get_state_display}}<p>
-							{% if order.file_example %}
-								<p class="card-title"> Example : <a class="badge badge-info" href="{{order.file_example.url}}">Download &#11147;</a></p>
-							{% endif %}
-						</div>
 					</div>
-					</div>
-						{% endif %}
-					{% endfor %}
+					<a class="mx-1 px-1 text-brand-textColor3 dark:text-brand-textColor1" href="#"><i class="fas fa-bell"></i></a>
 				</div>
-			</div>
-		</div>
+				<a class="mx-1 px-1 text-brand-textColor3 dark:text-brand-textColor1" href="#"><i class="fas fa-cog"></i></a>
+				<a href="{% url 'profile' %}">
+					<img class="mx-1 p-1 nav-profile-image w-10 h-10" 
+					src="{{user.profile.profile_pic.url}}" 
+					alt="Profile image" width="40px" height="40px">
+				</a>
+			</nav>
+		</main>
 	</div>
-</div>
-</div>
-</div>
-</div>
-<div>
-
-{% endblock %}
+	<script>
+		var is_dark = 0;
+		var property = document.getElementById('ThemeToggle');
+		var masterHtml = document.getElementById('master');
+		
+		function onload(){
+		  if (localStorage.getItem('darkTheme')) {
+			  is_dark = localStorage.getItem('darkTheme');
+		  }
+		  if (is_dark == 1){
+			property.style.color = "#EEEEEE";
+			property.className = "mx-1 px-1 fas fa-toggle-off text-2xl";
+			masterHtml.className = "dark";
+			is_dark = 1;
+		  }else{
+			property.style.color = "#333333";
+			property.className = "mx-1 px-1 fas fa-toggle-on text-2xl";
+			masterHtml.className = "";
+			is_dark = 0;
+		  }
+		}
+		
+		function changeTheme() {
+		  if (is_dark == 0) {
+			property.style.color = "#EEEEEE"
+			property.className = "mx-1 px-1 fas fa-toggle-off text-2xl"
+			masterHtml.className = "dark"
+			is_dark = 1;        
+			localStorage.setItem('darkTheme', is_dark);
+		  }
+		  else {
+			property.style.color = "#333333"
+			property.className = "mx-1 px-1 fas fa-toggle-on text-2xl"
+			masterHtml.className = ""
+			is_dark = 0;
+			localStorage.setItem('darkTheme', is_dark);
+		  }
+		}
+	</script>
+</body>
+</html>

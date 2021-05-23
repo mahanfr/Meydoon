@@ -22,9 +22,7 @@
       <nav class="flex items-center justify-between text-brand-textColor3 dark:text-white px-5">
         <div class="flex items-center">
           <img src="{% static 'pages/fav/apple-touch-icon.png' %}" width="35" height="35" class="mx-1" alt="">
-          <a class="text-xl text-brand-textColor4 dark:text-white font-bold font-extrabold uppercase hover:text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-blue-600" href="{% url 'index' %}">
-          Meydoon
-          </a>
+          <a href="{% url 'index' %}" class="text-lg text-center font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Meydoon</a>
           <div class="hidden lg:block ml-4">
             <a href="{% url 'index' %}" class="mx-1 px-2 py-2 text-sm text-brand-textColor3 dark:text-brand-textColor1 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-full">Dashboard</a>
             <a href="{% url 'gig_index' %}" class="mx-1 px-2 py-2 text-sm text-brand-textColor3 dark:text-brand-textColor1 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-full">Gigs</a>
