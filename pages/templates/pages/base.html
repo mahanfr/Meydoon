@@ -42,7 +42,7 @@
                 <span class="absolute top-0 right-0 bg-red-800 rounded-full w-2 h-2" style="z-index: 10;"></span>
               </span>
               <a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="{% url 'logout' %}"><i class="fas fa-cog"></i></a>
-              <a href="{% url 'profile' %}">
+              <a href="{% url 'dashboard' %}">
                 <img class="mx-1 p-1 nav-profile-image w-10 h-10" 
                 src="{{user.profile.profile_pic.url}}" 
                 alt="Profile image" width="40px" height="40px">
