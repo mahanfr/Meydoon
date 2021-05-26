@@ -8,7 +8,7 @@ User = get_user_model()
 # This a model that hanndels advertisment for intrested user
 # to be shown to other users
 class Gig(models.Model):
-    title = models.CharField(max_length=50, null=False)
+    title = models.CharField(max_length=255, null=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey("gigs.Category", on_delete=models.SET_NULL, null=True, blank=True)
     sub_category = models.ForeignKey("gigs.SubCategory", on_delete=models.SET_NULL, null=True, blank=True)
@@ -24,6 +24,14 @@ class Gig(models.Model):
         if img.name == "scimages/default.jpg" and len(showcase) >= 2:
             img = showcase[1].image
         return img
+
+    def get_lowest_plan_price(self):
+        plan_price_list = []
+        for plan in self.plan_set.all():
+            plan_price_list.append(plan.price)
+        if len(plan_price_list) > 0:
+            return min(plan_price_list)
+        return 0
 
     def plans_count(self):
         return self.plan_set.count()

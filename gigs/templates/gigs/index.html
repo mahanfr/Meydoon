@@ -1,31 +1,34 @@
 {% extends "pages/base.html" %}
 {% block title %}Gigs{% endblock %}
 {% block body %}
-<div class='mt-5 lg:grid grid-cols-2 xl:grid-cols-3 gap-3 mx-10'>
+<div class='mt-5 lg:grid grid-cols-2 xl:grid-cols-5 gap-3 mx-20'>
   {% for gig  in gigs  %}
-  <div class="bg-brand-card mb-3 p-4 rounded-md">
-    <div class="flex">
-      <img class="w-6/12" src="{{gig.get_showcase.url}}" alt="" style="height: 150px;object-fit: cover;">
-      <div class="flex flex-col justify-between px-3 flex-grow">
+  <div class="flex flex-col justify-between bg-brand-card mb-3 pb-4 rounded-md">
+    <div class="">
+      <img class="w-full" src="{{gig.get_showcase.url}}" alt="" style="height: 150px;object-fit: cover;">
+      <div class="flex flex-col px-3 flex-grow mt-3">
         <div class="">
           <div class="flex items-center space-x-2 mb-2">
             <img class="rounded-full" src="{{gig.user.profile.profile_pic.url}}" alt="" style="width:35px; height: 35px; object-fit: cover;">
-            <p class="font-thin">{{gig.user.user_name}}</p>
+            <div>
+              <p class="font-thin">{{gig.user.user_name}}</p>
+              <p class="text-sm opacity-60">Level {{gig.experience}} Freelancer</p>
+            </div>
           </div>
-          <h3 class="font-serif text-lg">{{gig.title}}</h3>
-          <h4 class="opacity-60 text-sm">{{gig.description}}</h4>
+          <a href="{% url 'gig_info' gig.id %}" style="-webkit-line-clamp: 2;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;word-wrap: break-word;"><h3 class="font-serif text-lg">{{gig.title}}</h3></a>
+          <small class="bg-blue-600 px-2 pb-0.5 text-white rounded-full text-opacity-80">{{gig.category}}</small>
         </div>
       </div>   
     </div>
-       
-    <div class="flex mt-2 justify-between items-center">
-      <div>
-        <small class="ml-1">{{gig.category}}</small>
-        <small class="ml-1">{{gig.sub_category}}</small>
-      </div>
-      <div class="">
-        <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
-        <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
+    <div class="px-3 mt-2">
+      <i class="fa fa-star text-yellow-500"></i><span class="ml-1 text-yellow-500">4.6 </span><span class="text-sm opacity-60">(129)</span>
+      <hr>
+      <div class="flex justify-between items-center">
+        <p class="text-sm">starting at <span class="text-lg">{{gig.get_lowest_plan_price}}$</span></p>
+        <div class="">
+          <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
+          <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
+        </div>
       </div>
     </div>
   </div>
