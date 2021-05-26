@@ -1,6 +1,13 @@
 module.exports = {
   purge: [],
   darkMode: 'class', // or 'media' or 'class'
+  purge: {
+    enabled: false, //true for production build
+    content: [
+        '../**/templates/*.html',
+        '../**/templates/**/*.html'
+    ]
+  },
   theme: {
     extend: {
       colors:{
