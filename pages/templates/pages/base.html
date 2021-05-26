@@ -17,7 +17,7 @@
     {% block head %}{% endblock %}
     <title>{% block title %}Meydoon{% endblock %}</title>
   </head>
-  <body class="bg-brand-background dark:bg-brand-background-dark" onload="onload()">
+  <body class="flex flex-col bg-brand-background dark:bg-brand-background-dark" onload="onload()" style="min-height: 100vh;">
     <div class="md:mx-20 mt-5">
       <nav class="flex items-center justify-between text-brand-textColor3 dark:text-white px-5">
         <div class="flex items-center">
@@ -34,15 +34,19 @@
         <button class="block lg:hidden"><i class="fas fa-bars"></i></button>
         <div class="hidden lg:flex">
           <div class="flex items-center">
-            <i id="ThemeToggle"class="fas fa-toggle-on text-2xl" style="color:#333333;" onclick="changeTheme()"></i>
+            <i id="ThemeToggle"class="fas fa-toggle-on mx-1 text-2xl" style="color:#333333;" onclick="changeTheme()"></i>
             {% if user.is_authenticated %}
+              <a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-search"></i></a>
+              <span class="relative">
+                <span class=""><a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-bell"></i></a></span>
+                <span class="absolute top-0 right-0 bg-red-800 rounded-full w-2 h-2" style="z-index: 10;"></span>
+              </span>
+              <a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="{% url 'logout' %}"><i class="fas fa-cog"></i></a>
               <a href="{% url 'profile' %}">
                 <img class="mx-1 p-1 nav-profile-image w-10 h-10" 
                 src="{{user.profile.profile_pic.url}}" 
                 alt="Profile image" width="40px" height="40px">
               </a>
-              <a class="mx-1 px-1 text-sm" href="#"> {{user.wallet.amount}} $</a>
-              <a class="mx-1 px-1 text-sm" href="{% url 'logout' %}">Logout</a>
             {% else %}
               <a class="mx-1 px-1 text-sm" href="{% url 'login' %}">Login</a>
               <a class="mx-1 px-4 text-sm py-2 bg-blue-600 rounded-full" href="{% url 'register' %}">Register</a>
@@ -53,7 +57,7 @@
     </div>
     {% block body %}
     {% endblock %}
-    <footer class="mt-10">
+    <footer class="mt-auto footer">
       <!-- Copyright -->
       <div class="text-center p-3 text-gray-600 dark:text-gray-300" style="background-color: rgba(0, 0, 0, 0.2);">
         © {{year}} Copyright
@@ -71,12 +75,12 @@
         }
         if (is_dark == 1){
           property.style.color = "#EEEEEE";
-          property.className = "fas fa-toggle-off text-2xl";
+          property.className = property.className.replace('fa-toggle-on','fa-toggle-off');
           masterHtml.className = "dark";
           is_dark = 1;
         }else{
           property.style.color = "#333333";
-          property.className = "fas fa-toggle-on text-2xl";
+          property.className = property.className.replace('fa-toggle-off','fa-toggle-on');
           masterHtml.className = "";
           is_dark = 0;
         }
@@ -85,14 +89,14 @@
       function changeTheme() {
         if (is_dark == 0) {
           property.style.color = "#EEEEEE"
-          property.className = "fas fa-toggle-off text-2xl"
+          property.className = property.className.replace('fa-toggle-on','fa-toggle-off');
           masterHtml.className = "dark"
           is_dark = 1;        
           localStorage.setItem('darkTheme', is_dark);
         }
         else {
           property.style.color = "#333333"
-          property.className = "fas fa-toggle-on text-2xl"
+          property.className = property.className.replace('fa-toggle-off','fa-toggle-on');
           masterHtml.className = ""
           is_dark = 0;
           localStorage.setItem('darkTheme', is_dark);

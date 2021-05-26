@@ -1,15 +1,14 @@
 {% extends "pages/base.html" %}
 {% block title %}{{gig.title}} edit {% endblock %}
 {% block body %}
-{% csrf_token %}
-	{% load crispy_forms_tags %}
-    {% load tailwind_filters %}
-    <form  method="post" style="padding-top:50px; width:400px;height:70%" class='md:container md:mx-auto' enctype="multipart/form-data">
-        <h1 class = 'display-4' style='text-align:center ; padding-bottom:50px'>Edit Gig </h1>
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
+<div class="mx-auto mb-5">
+    <form  method="post" style="padding-top:50px; width:400px;" class='md:container md:mx-auto' enctype="multipart/form-data">
+        <h1 class = 'font-thin text-2xl' style='text-align:center ; padding-bottom:50px'>Edit Gig</h1>
         {% csrf_token %}
         {{ form|crispy}}
-    <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' >Confirm</button>
-    
+        <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' >Confirm</button>      
     </form>
-
+</div>
 {% endblock %}

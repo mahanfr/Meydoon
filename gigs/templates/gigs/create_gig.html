@@ -4,10 +4,11 @@
     {% load crispy_forms_tags %}
     {% load tailwind_filters %}
     {% csrf_token %}
-    <form  method="post" style="padding-top:50px; width:400px;height:100%" class='container' enctype="multipart/form-data">
-    {% csrf_token %}
-    {{g_form|crispy}}
-    {{img_form|crispy}}
-    <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Confirm</button>
-    </form>   
+    <div class="mx-auto mb-5">
+        <form  method="post" style="padding-top:50px; width:400px;height:100%" class='container' enctype="multipart/form-data">
+            {{g_form|crispy}}
+            {{img_form|crispy}}
+        <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Confirm</button>
+        </form>   
+    </div>
 {% endblock %}

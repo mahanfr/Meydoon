@@ -16,81 +16,201 @@
     <meta name="theme-color" content="#F5F5F5">
     <title>Dashboard</title>
 </head>
-<body class="bg-brand-background dark:bg-brand-background-dark" onload="onload()">
-    <div class="md:flex flex-col md:flex-row md:min-h-screen w-full">
+<body class="bg-brand-background dark:bg-brand-background-dark md:overflow-hidden" onload="onload()">
+  <div class="md:flex flex-col md:flex-row md:min-h-screen w-full">
 		<div class="flex flex-col w-full md:w-64 text-gray-700 bg-white dark:text-gray-200 dark:bg-gray-800 flex-shrink-0">
 		  <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
-			<a href="{% url 'index' %}" class="text-lg mx-auto font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Meydoon</a>
-			<button class="rounded-lg md:hidden rounded-lg focus:outline-none focus:shadow-outline">
+			<a href="{% url 'index' %}" class="text-lg md:mx-auto font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Meydoon</a>
+			<button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" onclick="clickNavbar()">
 			  <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-				<path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-				<path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          <path id="navbarOpenButtonIcon" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+          <path id="navbarCloseButtonIcon" class="hidden" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
 			  </svg>
 			</button>
 		  </div>
-		  <nav class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-			<a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Blog</a>
-			<a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Portfolio</a>
-			<a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">About</a>
-			<a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
+		  <nav id="sidebar" class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto hidden">
+        <div>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">My Gigs</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Orders</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Comments</a>
+        </div>
+        <div class="mt-10">
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Messages</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">My Orders</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Refund</a>
+        </div>
+        <div class="mt-10">
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Wallet</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Profile</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Settings</a>
+        </div>
 		  </nav>
 		</div>
-		<main class=" w-full ">
+
+		<main class="w-full">
 			<nav class="flex justify-end items-center my-3 mx-5">
 				<i id="ThemeToggle"class="mx-1 px-1 fas fa-toggle-on text-2xl" style="color:#333333;" onclick="changeTheme()"></i>
-				<a class="mx-1 px-1 text-brand-textColor3 dark:text-brand-textColor1" href="#"><i class="fas fa-search"></i></a>
-				<div>
-					<div class="bg-red-100 rounded-full w-0.5 h-0.5">
-
-					</div>
-					<a class="mx-1 px-1 text-brand-textColor3 dark:text-brand-textColor1" href="#"><i class="fas fa-bell"></i></a>
-				</div>
-				<a class="mx-1 px-1 text-brand-textColor3 dark:text-brand-textColor1" href="#"><i class="fas fa-cog"></i></a>
+				<a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-search"></i></a>
+				<span class="relative">
+          <span class=""><a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-bell"></i></a></span>
+					<span class="absolute top-0 right-0 bg-red-800 rounded-full w-2 h-2" style="z-index: 10;"></span>
+        </span>
+				<a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-cog"></i></a>
 				<a href="{% url 'profile' %}">
 					<img class="mx-1 p-1 nav-profile-image w-10 h-10" 
 					src="{{user.profile.profile_pic.url}}" 
 					alt="Profile image" width="40px" height="40px">
 				</a>
 			</nav>
+			<section class="h-screen max-h-screen md:overflow-y-auto">
+        <div class="mx-5">
+          <h2 class="mx-3 font-mono text-2xl dark:text-brand-textColor2">My Gigs</h2><br>
+          <div class="lg:flex justify-between">
+            <div>
+              {% for gig in user_gig %}
+                <div class="flex bg-brand-card mb-3 p-4 rounded-md">
+                  <img class="mx-auto" src="{{gig.get_showcase.url}}" alt="" style="width: 250px;height: 150px;object-fit: cover;">
+                  <div class="flex flex-col justify-between px-3 flex-grow">
+                    <div class="">
+                      <h3>{{gig.title}}</h3>
+                      <h4>{{gig.description}}</h4>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <div>
+                        <small class="ml-1">{{gig.category}}</small>
+                        <small class="ml-1">{{gig.sub_category}}</small>
+                      </div>
+                      <div class="">
+                        <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
+                        <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="lg:mx-10 xl:w-4/12 flex flex-col bg-brand-card p-3 rounded-md"style="height:500px">
+              <div class="mx-auto">
+                <div class="mt-5 mx-auto flex items-center">
+                  <img class="mx-5 rounded-full" src="{{user.profile.profile_pic.url}}" alt="" style="width: 100px;height: 100px;object-fit: cover;">
+                  <div>
+                    <h4>{{user.user_name}}</h4>
+                    <h5>125 Jobs Done</h5>
+                    <h5>150 Comments</h5>
+                    <h5>8k Votes</h5>
+                  </div>
+                </div>
+                <div class="mx-auto mt-10 text-center">
+                  <a class="px-3 py-2 bg-blue-500 text-white ronded-md" href="#">Become Pro</a>
+                  <a class="px-3 py-2 bg-blue-500 text-white ronded-md" href="#">New Gig</a>
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="mt-4 text-center">
+                  <span class="text-xl mx-5">User Rating</span>
+                  <span class="text-xl fa fa-star text-yellow-400"></span>
+                  <span class="text-xl fa fa-star text-yellow-400"></span>
+                  <span class="text-xl fa fa-star text-yellow-400"></span>
+                  <span class="text-xl fa fa-star checked"></span>
+                  <span class="text-xl fa fa-star checked"></span>
+                </div>
+                <small>3.2/5 for 8321 votes</small>
+                <div class="flex my-2 items-center">
+                  <h4 class="mx-2 w-20">5 Star</h4>
+                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+                    <div class="bg-green-500 w-6/12" style="height: 20px;"></div>
+                  </div>
+                  <h4 class="mx-2">100</h4>
+                </div>
+                <div class="flex my-2 items-center">
+                  <h4 class="mx-2 w-20">4 Star</h4>
+                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+                    <div class="bg-blue-800 w-2/3" style="height: 20px;"></div>
+                  </div>
+                  <h4 class="mx-2">100</h4>
+                </div>
+                <div class="flex my-2 items-center">
+                  <h4 class="mx-2 w-20">3 Star</h4>
+                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+                    <div class="bg-blue-500 w-1/12" style="height: 20px;"></div>
+                  </div>
+                  <h4 class="mx-2">100</h4>
+                </div>
+                <div class="flex my-2 items-center">
+                  <h4 class="mx-2 w-20">2 Star</h4>
+                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+                    <div class="bg-yellow-500 w-4/12" style="height: 20px;"></div>
+                  </div>
+                  <h4 class="mx-2">100</h4>
+                </div>
+                <div class="flex my-2 items-center">
+                  <h4 class="mx-2 w-20">1 Star</h4>
+                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+                    <div class="bg-red-500 w-11/12" style="height: 20px;"></div>
+                  </div>
+                  <h4 class="mx-2">100</h4>
+                </div>
+                
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+        <br><br><br><br>
+			</section>
 		</main>
 	</div>
+  
 	<script>
 		var is_dark = 0;
+    	var is_navBar_open = 1;
 		var property = document.getElementById('ThemeToggle');
 		var masterHtml = document.getElementById('master');
-		
+		var navBar = document.getElementById('sidebar');
+
 		function onload(){
 		  if (localStorage.getItem('darkTheme')) {
-			  is_dark = localStorage.getItem('darkTheme');
+			is_dark = localStorage.getItem('darkTheme');
 		  }
 		  if (is_dark == 1){
 			property.style.color = "#EEEEEE";
-			property.className = "mx-1 px-1 fas fa-toggle-off text-2xl";
+			property.className = property.className.replace('fa-toggle-off','fa-toggle-on');
 			masterHtml.className = "dark";
 			is_dark = 1;
 		  }else{
 			property.style.color = "#333333";
-			property.className = "mx-1 px-1 fas fa-toggle-on text-2xl";
+			property.className = property.className.replace('fa-toggle-on','fa-toggle-off');
 			masterHtml.className = "";
 			is_dark = 0;
 		  }
 		}
-		
+    
 		function changeTheme() {
 		  if (is_dark == 0) {
 			property.style.color = "#EEEEEE"
-			property.className = "mx-1 px-1 fas fa-toggle-off text-2xl"
+			property.className = property.className.replace('fa-toggle-off','fa-toggle-on');
 			masterHtml.className = "dark"
 			is_dark = 1;        
 			localStorage.setItem('darkTheme', is_dark);
 		  }
 		  else {
 			property.style.color = "#333333"
-			property.className = "mx-1 px-1 fas fa-toggle-on text-2xl"
+			property.className = property.className.replace('fa-toggle-on','fa-toggle-off');
 			masterHtml.className = ""
 			is_dark = 0;
 			localStorage.setItem('darkTheme', is_dark);
 		  }
+		}
+
+		function clickNavbar(){
+			if(is_navBar_open == 0){
+				navBar.className = navBar.className.replace('hidden','');
+				is_navBar_open = 1;
+			}else{
+				navBar.className += "hidden";
+				is_navBar_open = 0;
+			}
 		}
 	</script>
 </body>
