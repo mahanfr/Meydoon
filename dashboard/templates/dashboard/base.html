@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html id="master" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/d6eba2497b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tailwind.css' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'pages/fav/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'pages/fav/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'pages/fav/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'pages/fav/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'pages/fav/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#F5F5F5">
+    <title>Meydoon - {% block title %}Dashboard{% endblock %}</title>
+</head>
+<body class="bg-brand-background dark:bg-brand-background-dark md:overflow-hidden" onload="onload()">
+  <div class="md:flex flex-col md:flex-row md:min-h-screen w-full">
+		<div class="flex flex-col w-full md:w-64 text-gray-700 bg-white dark:text-gray-200 dark:bg-gray-800 flex-shrink-0">
+		  <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
+			<a href="{% url 'index' %}" class="text-lg md:mx-auto font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Meydoon</a>
+			<button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" onclick="clickNavbar()">
+			  <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+          <path id="navbarOpenButtonIcon" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+          <path id="navbarCloseButtonIcon" class="hidden" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+			  </svg>
+			</button>
+		  </div>
+		  <nav id="sidebar" class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto hidden">
+        <div>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="{% url 'dashboard' %}">My Gigs</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="{% url 'dashboard-orders' %}">Orders</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Comments</a>
+        </div>
+        <div class="mt-10">
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Messages</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">My Orders</a>
+        </div>
+        <div class="mt-10">
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Wallet</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Profile</a>
+          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Settings</a>
+        </div>
+		  </nav>
+		</div>
+
+		<main class="w-full">
+			<nav class="flex justify-end items-center my-3 mx-5">
+				<i id="ThemeToggle"class="mx-1 px-1 fas fa-toggle-on text-2xl" style="color:#333333;" onclick="changeTheme()"></i>
+				<a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-search"></i></a>
+				<div class="relative">
+          <span class=""><a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-bell"></i></a></span>
+					<span class="absolute top-0 right-0 bg-red-800 rounded-full w-2 h-2" style="z-index: 10;"></span>
+        </div>
+				<a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-cog"></i></a>
+				<a href="{% url 'profile' %}">
+					<img class="mx-1 p-1 nav-profile-image w-10 h-10" 
+					src="{{user.profile.profile_pic.url}}" 
+					alt="Profile image" width="40px" height="40px">
+				</a>
+			</nav>
+			<section class="h-screen max-h-screen md:overflow-y-auto">
+        {% block body %}
+        {% endblock %}
+        <br><br><br><br>
+			</section>
+		</main>
+	</div>
+  
+	<script>
+		var is_dark = 0;
+    	var is_navBar_open = 1;
+		var property = document.getElementById('ThemeToggle');
+		var masterHtml = document.getElementById('master');
+		var navBar = document.getElementById('sidebar');
+
+		function onload(){
+		  if (localStorage.getItem('darkTheme')) {
+			is_dark = localStorage.getItem('darkTheme');
+		  }
+		  if (is_dark == 1){
+			property.style.color = "#EEEEEE";
+			property.className = property.className.replace('fa-toggle-off','fa-toggle-on');
+			masterHtml.className = "dark";
+			is_dark = 1;
+		  }else{
+			property.style.color = "#333333";
+			property.className = property.className.replace('fa-toggle-on','fa-toggle-off');
+			masterHtml.className = "";
+			is_dark = 0;
+		  }
+		}
+    
+		function changeTheme() {
+		  if (is_dark == 0) {
+			property.style.color = "#EEEEEE"
+			property.className = property.className.replace('fa-toggle-off','fa-toggle-on');
+			masterHtml.className = "dark"
+			is_dark = 1;        
+			localStorage.setItem('darkTheme', is_dark);
+		  }
+		  else {
+			property.style.color = "#333333"
+			property.className = property.className.replace('fa-toggle-on','fa-toggle-off');
+			masterHtml.className = ""
+			is_dark = 0;
+			localStorage.setItem('darkTheme', is_dark);
+		  }
+		}
+
+		function clickNavbar(){
+			if(is_navBar_open == 0){
+				navBar.className = navBar.className.replace('hidden','');
+				is_navBar_open = 1;
+			}else{
+				navBar.className += "hidden";
+				is_navBar_open = 0;
+			}
+		}
+	</script>
+</body>
+</html>

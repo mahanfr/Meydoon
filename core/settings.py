@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "pages",
     "wallets",
     "orders",
+    "dashboard",
     "crispy_forms",
     "crispy_tailwind",
 ]

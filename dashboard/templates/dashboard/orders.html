@@ -1,0 +1,16 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+<div class="mx-10">
+  <h2 class="font-mono text-2xl dark:text-brand-textColor2">Orders</h2><br>
+  <div class="lg:flex justify-between">
+    {% if orders > 0 %}
+      {% for order in orders %}
+        <p>{{order.customer.username}}</p>
+      {% endfor %}
+    {% else %}
+      <p>nothing to show</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

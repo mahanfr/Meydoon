@@ -1,0 +1,98 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+<div class="mx-5">
+  <h2 class="mx-3 font-mono text-2xl dark:text-brand-textColor2">My Gigs</h2><br>
+  <div class="lg:flex justify-between">
+    <div>
+      {% for gig in user_gig %}
+        <div class="flex bg-brand-card mb-3 p-4 rounded-md">
+          <img class="mx-auto" src="{{gig.get_showcase.url}}" alt="" style="width: 250px;height: 150px;object-fit: cover;">
+          <div class="flex flex-col justify-between px-3 flex-grow">
+            <div class="">
+              <h3>{{gig.title}}</h3>
+              <h4>{{gig.description}}</h4>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <small class="ml-1">{{gig.category}}</small>
+                <small class="ml-1">{{gig.sub_category}}</small>
+              </div>
+              <div class="">
+                <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
+                <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="lg:mx-10 xl:w-4/12 flex flex-col bg-brand-card p-3 rounded-md"style="height:500px">
+      <div class="mx-auto">
+        <div class="mt-5 mx-auto flex items-center">
+          <img class="mx-5 rounded-full" src="{{user.profile.profile_pic.url}}" alt="" style="width: 100px;height: 100px;object-fit: cover;">
+          <div>
+            <h4>{{user.user_name}}</h4>
+            <h5>125 Jobs Done</h5>
+            <h5>150 Comments</h5>
+            <h5>8k Votes</h5>
+          </div>
+        </div>
+        <div class="mx-auto mt-10 text-center">
+          <a class="px-3 py-2 bg-blue-500 text-white ronded-md" href="#">Become Pro</a>
+          <a class="px-3 py-2 bg-blue-500 text-white ronded-md" href="#">New Gig</a>
+        </div>
+      </div>
+      <div class="text-center">
+        <div class="mt-4 text-center">
+          <span class="text-xl mx-5">User Rating</span>
+          <span class="text-xl fa fa-star text-yellow-400"></span>
+          <span class="text-xl fa fa-star text-yellow-400"></span>
+          <span class="text-xl fa fa-star text-yellow-400"></span>
+          <span class="text-xl fa fa-star checked"></span>
+          <span class="text-xl fa fa-star checked"></span>
+        </div>
+        <small>3.2/5 for 8321 votes</small>
+        <div class="flex my-2 items-center">
+          <h4 class="mx-2 w-20">5 Star</h4>
+          <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+            <div class="bg-green-500 w-6/12" style="height: 20px;"></div>
+          </div>
+          <h4 class="mx-2">100</h4>
+        </div>
+        <div class="flex my-2 items-center">
+          <h4 class="mx-2 w-20">4 Star</h4>
+          <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+            <div class="bg-blue-800 w-2/3" style="height: 20px;"></div>
+          </div>
+          <h4 class="mx-2">100</h4>
+        </div>
+        <div class="flex my-2 items-center">
+          <h4 class="mx-2 w-20">3 Star</h4>
+          <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+            <div class="bg-blue-500 w-1/12" style="height: 20px;"></div>
+          </div>
+          <h4 class="mx-2">100</h4>
+        </div>
+        <div class="flex my-2 items-center">
+          <h4 class="mx-2 w-20">2 Star</h4>
+          <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+            <div class="bg-yellow-500 w-4/12" style="height: 20px;"></div>
+          </div>
+          <h4 class="mx-2">100</h4>
+        </div>
+        <div class="flex my-2 items-center">
+          <h4 class="mx-2 w-20">1 Star</h4>
+          <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
+            <div class="bg-red-500 w-11/12" style="height: 20px;"></div>
+          </div>
+          <h4 class="mx-2">100</h4>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+{% endblock %}
