@@ -37,28 +37,8 @@ def profile_edit(request):
 
 
 @login_required
-@csrf_exempt
 def profile(request):
-    user_gig = Gig.objects.filter(user=request.user)
-    orders = []
-    message = ""
-    for gig in user_gig:
-        try:
-            orders.append(Order.objects.get(gig=gig))
-        except Order.DoesNotExist:
-            continue
-    if request.method == "POST":
-        if request.is_ajax:
-            order_id = request.POST["id"]
-            x = Order.objects.get(id=order_id)
-            if request.POST["act"] == "accept":
-                x.state = 1
-                x.save()
-            else:
-                x.state = 3
-                x.save()
-            return redirect("profile")
-        return redirect("profile")
-    else:
-        context = {"user_gig": user_gig, "orders": orders, "message": message}
-        return render(request, "users/profile.html", context=context)
+    gigs = request.user.gig_set.all()
+    context = {"gigs": gigs}
+    return render(request, "users/profile.html", context=context)
+

@@ -1,217 +1,80 @@
-{% load static %}
-<!DOCTYPE html>
-<html id="master" lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://kit.fontawesome.com/d6eba2497b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'pages/base.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'tailwind.css' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'pages/fav/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'pages/fav/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'pages/fav/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'pages/fav/site.webmanifest' %}">
-    <link rel="mask-icon" href="{% static 'pages/fav/safari-pinned-tab.svg' %}" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#F5F5F5">
-    <title>Dashboard</title>
-</head>
-<body class="bg-brand-background dark:bg-brand-background-dark md:overflow-hidden" onload="onload()">
-  <div class="md:flex flex-col md:flex-row md:min-h-screen w-full">
-		<div class="flex flex-col w-full md:w-64 text-gray-700 bg-white dark:text-gray-200 dark:bg-gray-800 flex-shrink-0">
-		  <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
-			<a href="{% url 'index' %}" class="text-lg md:mx-auto font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Meydoon</a>
-			<button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" onclick="clickNavbar()">
-			  <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-          <path id="navbarOpenButtonIcon" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-          <path id="navbarCloseButtonIcon" class="hidden" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-			  </svg>
-			</button>
-		  </div>
-		  <nav id="sidebar" class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto hidden">
-        <div>
-          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">My Gigs</a>
-          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Orders</a>
-          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Comments</a>
-        </div>
-        <div class="mt-10">
-          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Messages</a>
-          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">My Orders</a>
-          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Refund</a>
-        </div>
-        <div class="mt-10">
-          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Wallet</a>
-          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Profile</a>
-          <a class="block px-4 py-2 mt-1 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Settings</a>
-        </div>
-		  </nav>
-		</div>
-
-		<main class="w-full">
-			<nav class="flex justify-end items-center my-3 mx-5">
-				<i id="ThemeToggle"class="mx-1 px-1 fas fa-toggle-on text-2xl" style="color:#333333;" onclick="changeTheme()"></i>
-				<a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-search"></i></a>
-				<span class="relative">
-          <span class=""><a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-bell"></i></a></span>
-					<span class="absolute top-0 right-0 bg-red-800 rounded-full w-2 h-2" style="z-index: 10;"></span>
-        </span>
-				<a class="mx-1 px-1 text-brand-textColor4 dark:text-brand-textColor1" href="#"><i class="fas fa-cog"></i></a>
-				<a href="{% url 'profile' %}">
-					<img class="mx-1 p-1 nav-profile-image w-10 h-10" 
-					src="{{user.profile.profile_pic.url}}" 
-					alt="Profile image" width="40px" height="40px">
-				</a>
-			</nav>
-			<section class="h-screen max-h-screen md:overflow-y-auto">
-        <div class="mx-5">
-          <h2 class="mx-3 font-mono text-2xl dark:text-brand-textColor2">My Gigs</h2><br>
-          <div class="lg:flex justify-between">
-            <div>
-              {% for gig in user_gig %}
-                <div class="flex bg-brand-card mb-3 p-4 rounded-md">
-                  <img class="mx-auto" src="{{gig.get_showcase.url}}" alt="" style="width: 250px;height: 150px;object-fit: cover;">
-                  <div class="flex flex-col justify-between px-3 flex-grow">
-                    <div class="">
-                      <h3>{{gig.title}}</h3>
-                      <h4>{{gig.description}}</h4>
-                    </div>
-                    <div class="flex justify-between items-center">
-                      <div>
-                        <small class="ml-1">{{gig.category}}</small>
-                        <small class="ml-1">{{gig.sub_category}}</small>
-                      </div>
-                      <div class="">
-                        <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
-                        <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-            </div>
-            <div class="lg:mx-10 xl:w-4/12 flex flex-col bg-brand-card p-3 rounded-md"style="height:500px">
-              <div class="mx-auto">
-                <div class="mt-5 mx-auto flex items-center">
-                  <img class="mx-5 rounded-full" src="{{user.profile.profile_pic.url}}" alt="" style="width: 100px;height: 100px;object-fit: cover;">
+{% extends "pages/base.html" %}
+{% block title %}Profile{% endblock %}
+{% block body %}
+<div class="mx-5 sm:mx-10 md:mx-20 md:grid grid-cols-12 gap-5 md:gap-12">
+  <div class="mt-10 py-3 col-start-1 col-span-6 lg:col-span-3 rounded-md dark:bg-brand-card-dark bg-brand-card flex flex-col" style="height: fit-content;">
+    <img class="mx-auto rounded-full mt-5" src="{{user.profile.profile_pic.url}}" alt="" style="width: 100px;height: 100px;object-fit: cover;">
+    <h4 class="mt-1 font-semibold text-center dark:text-gray-200">{{user.user_name}}</h4>
+    <span class="mx-auto">
+      <i class="fa fa-star text-yellow-500 text-sm"></i>
+      <i class="fa fa-star text-yellow-500 text-sm"></i>
+      <i class="fa fa-star text-yellow-500 text-sm"></i>
+      <i class="fa fa-star text-yellow-500 text-sm"></i>
+      <i class="fa fa-star text-yellow-500 text-sm"></i>
+      <span class="ml-1 text-yellow-500">4.6 </span><span class="text-sm opacity-60">(129)</span>
+    </span>
+    <h5 class="px-3 mt-2 text-center text-thin text-sm">{{user.profile.bio}}</h5>
+    <div class="flex">
+      <a class="mt-2 mx-auto px-3 py-2 bg-brand-gradientBottom text-center text-white" href="">Message</a>
+    </div>
+    <div class="mt-3 flex flex-col mx-8">
+      <div class="py-1 flex justify-between">
+        <h3 class="text-sm lg:text-md">First name:</h3>
+        <h3 class="text-sm lg:text-md">{{user.first_name}}</h3>
+      </div>
+      <div class="py-1 flex justify-between">
+        <h3 class="text-sm lg:text-md">Last name:</h3>
+        <h3 class="text-sm lg:text-md">{{user.last_name}}</h3>
+      </div>
+      <div class="py-1 flex justify-between">
+        <h3 class="text-sm lg:text-md">Joined since:</h3>
+        <h3 class="text-sm lg:text-md">{{user.created_at.date}}</h3>
+      </div>
+      <div class="py-1 flex justify-between">
+        <h3 class="text-sm lg:text-md">Degree:</h3>
+        <h3 class="text-sm lg:text-md">{{user.profile.degree}}</h3>
+      </div>
+      <div class="py-1 flex justify-between">
+        <h3 class="text-sm lg:text-md">Birthday:</h3>
+        <h3 class="text-sm lg:text-md">{{user.profile.birthday}}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-span-6 lg:col-span-8">
+    <h3 class="my-10 text-xl font-semibold dark:text-gray-300">{{user.user_name}}'s Gigs</h3>
+    <div class="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+      {% for gig  in gigs  %}
+        <div class="flex flex-col justify-between bg-brand-card mb-3 pb-4 rounded-md">
+          <div class="">
+            <img class="w-full" src="{{gig.get_showcase.url}}" alt="" style="height: 150px;object-fit: cover;">
+            <div class="flex flex-col px-3 flex-grow mt-3">
+              <div class="">
+                <div class="flex items-center space-x-2 mb-2">
+                  <img class="rounded-full" src="{{gig.user.profile.profile_pic.url}}" alt="" style="width:35px; height: 35px; object-fit: cover;">
                   <div>
-                    <h4>{{user.user_name}}</h4>
-                    <h5>125 Jobs Done</h5>
-                    <h5>150 Comments</h5>
-                    <h5>8k Votes</h5>
+                    <p class="font-thin">{{gig.user.user_name}}</p>
+                    <p class="text-sm opacity-60">Level {{gig.experience}} Freelancer</p>
                   </div>
                 </div>
-                <div class="mx-auto mt-10 text-center">
-                  <a class="px-3 py-2 bg-blue-500 text-white ronded-md" href="#">Become Pro</a>
-                  <a class="px-3 py-2 bg-blue-500 text-white ronded-md" href="#">New Gig</a>
-                </div>
+                <a href="{% url 'gig_info' gig.id %}" style="-webkit-line-clamp: 2;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;word-wrap: break-word;"><h3 class="font-serif text-lg">{{gig.title}}</h3></a>
+                <small class="bg-blue-600 px-2 pb-0.5 text-white rounded-full text-opacity-80">{{gig.category}}</small>
               </div>
-              <div class="text-center">
-                <div class="mt-4 text-center">
-                  <span class="text-xl mx-5">User Rating</span>
-                  <span class="text-xl fa fa-star text-yellow-400"></span>
-                  <span class="text-xl fa fa-star text-yellow-400"></span>
-                  <span class="text-xl fa fa-star text-yellow-400"></span>
-                  <span class="text-xl fa fa-star checked"></span>
-                  <span class="text-xl fa fa-star checked"></span>
-                </div>
-                <small>3.2/5 for 8321 votes</small>
-                <div class="flex my-2 items-center">
-                  <h4 class="mx-2 w-20">5 Star</h4>
-                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
-                    <div class="bg-green-500 w-6/12" style="height: 20px;"></div>
-                  </div>
-                  <h4 class="mx-2">100</h4>
-                </div>
-                <div class="flex my-2 items-center">
-                  <h4 class="mx-2 w-20">4 Star</h4>
-                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
-                    <div class="bg-blue-800 w-2/3" style="height: 20px;"></div>
-                  </div>
-                  <h4 class="mx-2">100</h4>
-                </div>
-                <div class="flex my-2 items-center">
-                  <h4 class="mx-2 w-20">3 Star</h4>
-                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
-                    <div class="bg-blue-500 w-1/12" style="height: 20px;"></div>
-                  </div>
-                  <h4 class="mx-2">100</h4>
-                </div>
-                <div class="flex my-2 items-center">
-                  <h4 class="mx-2 w-20">2 Star</h4>
-                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
-                    <div class="bg-yellow-500 w-4/12" style="height: 20px;"></div>
-                  </div>
-                  <h4 class="mx-2">100</h4>
-                </div>
-                <div class="flex my-2 items-center">
-                  <h4 class="mx-2 w-20">1 Star</h4>
-                  <div class="mx-1 w-full bg-gray-400 text-center text-white"style="height: 20px;">
-                    <div class="bg-red-500 w-11/12" style="height: 20px;"></div>
-                  </div>
-                  <h4 class="mx-2">100</h4>
-                </div>
-                
+            </div>   
+          </div>
+          <div class="px-3 mt-2">
+            <i class="fa fa-star text-yellow-500"></i><span class="ml-1 text-yellow-500">4.6 </span><span class="text-sm opacity-60">(129)</span>
+            <hr>
+            <div class="flex justify-between items-center">
+              <p class="text-sm">starting at <span class="text-lg">{{gig.get_lowest_plan_price}}$</span></p>
+              <div class="">
+                <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
+                <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
               </div>
-              
             </div>
-            
           </div>
         </div>
-        <br><br><br><br>
-			</section>
-		</main>
-	</div>
-  
-	<script>
-		var is_dark = 0;
-    	var is_navBar_open = 1;
-		var property = document.getElementById('ThemeToggle');
-		var masterHtml = document.getElementById('master');
-		var navBar = document.getElementById('sidebar');
-
-		function onload(){
-		  if (localStorage.getItem('darkTheme')) {
-			is_dark = localStorage.getItem('darkTheme');
-		  }
-		  if (is_dark == 1){
-			property.style.color = "#EEEEEE";
-			property.className = property.className.replace('fa-toggle-off','fa-toggle-on');
-			masterHtml.className = "dark";
-			is_dark = 1;
-		  }else{
-			property.style.color = "#333333";
-			property.className = property.className.replace('fa-toggle-on','fa-toggle-off');
-			masterHtml.className = "";
-			is_dark = 0;
-		  }
-		}
-    
-		function changeTheme() {
-		  if (is_dark == 0) {
-			property.style.color = "#EEEEEE"
-			property.className = property.className.replace('fa-toggle-off','fa-toggle-on');
-			masterHtml.className = "dark"
-			is_dark = 1;        
-			localStorage.setItem('darkTheme', is_dark);
-		  }
-		  else {
-			property.style.color = "#333333"
-			property.className = property.className.replace('fa-toggle-on','fa-toggle-off');
-			masterHtml.className = ""
-			is_dark = 0;
-			localStorage.setItem('darkTheme', is_dark);
-		  }
-		}
-
-		function clickNavbar(){
-			if(is_navBar_open == 0){
-				navBar.className = navBar.className.replace('hidden','');
-				is_navBar_open = 1;
-			}else{
-				navBar.className += "hidden";
-				is_navBar_open = 0;
-			}
-		}
-	</script>
-</body>
-</html>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
