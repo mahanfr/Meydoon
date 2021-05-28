@@ -61,7 +61,7 @@
                   </div>
                   <div class="my-2">
                     <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
-                    {% if user == plan.gig.user %}<a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="{% url 'edit_plan' plan.id %}">Edit</a>{% endif %}
+                    {% if user == plan.gig.user %} <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="{% url 'edit_plan' plan.id %}">Edit</a>{% endif %}
                   </div>
                 </div>
               </div>
