@@ -31,21 +31,43 @@
         <hr>
         
         <h1>Plans</h1>
-        <div class="row row-cols-1 row-cols-md-2">
+        <div class="flex items-center justify-center">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
         {% for plan in plans %}
-            <div class="col mb-4">
-              <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">{{plan.title}}</h5>
-                      <p class="card-text">{{plan.feature_list}}</p>
-                      <h6>{{plan.price}} $<h6>
-                      <a class='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
-                      <a class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' href="{% url 'edit_plan' plan.id %}">Edit</a>
-                   </div>
+          <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+                <div class="text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
+                  <!-- svg  -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
                 </div>
-            </div>
+                <div class="mt-8">
+                  <p class="text-xl font-semibold my-2">{{plan.title}}</p>
+                  <div class="flex space-x-2 text-black-400 text-sm">
+                    <p>{{plan.feature_list}}</p>
+                  </div>
+                  <div class="flex space-x-2 text-gray-400 text-sm my-3">
+                    <p>owner : {{plan.gig.user.user_name}}</p>
+                  </div>
+                  <div class="border-t-2"></div>
+
+                  <div class="flex justify-between">
+                    <div class="my-2">
+                      <p class="font-semibold text-base mb-2">Price:</p>
+                      <div class="text-base text-gray-400 font-semibold">
+                        <p>{{plan.price}} $</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="my-2">
+                    <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
+                    {% if user == plan.gig.user %}<a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="{% url 'edit_plan' plan.id %}">Edit</a>{% endif %}
+                  </div>
+                </div>
+              </div>
             {% endfor %}
           </div>
+        </div> 
         <hr>
         <h1>Comments</h1>
         {% for comment in comments %}
