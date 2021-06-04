@@ -1,4 +1,5 @@
 from django import forms
+import django
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from .forms import GigCreationForm, GigEditForm, ShowcaseForm, CommentForm, PlanForm, PlanEditForm
@@ -6,6 +7,7 @@ from django.http.response import Http404
 from django.shortcuts import redirect, render
 from .models import Comment, Gig, Plan, ShowcaseImage
 from django.forms import modelformset_factory
+from django.core.exceptions import PermissionDenied
 
 
 # Create your views here.
@@ -112,6 +114,8 @@ def comment_aprove(request):
 
 def edit_gig(request, gigid):
     gig = Gig.objects.get(id=gigid)
+    if gig.user != request.user:
+        raise PermissionDenied
     if request.method == "POST":
         form = GigEditForm(request.POST, instance=gig)
         if form.is_valid():
@@ -124,6 +128,8 @@ def edit_gig(request, gigid):
 
 def edit_plan(request, planid):
     plan = Plan.objects.get(id=planid)
+    if plan.gig.user != request.user:
+        raise PermissionDenied
     if request.method == "POST":
         form = PlanEditForm(request.POST, instance=plan)
         if form.is_valid():
