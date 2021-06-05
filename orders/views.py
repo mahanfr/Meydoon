@@ -14,6 +14,7 @@ def order(request):
             order_form.save(commit=False).plan_id = plan_id
             order_form.save(commit=False).customer = request.user
             order_form.save(commit=False).gig = gig
+            # How git works
             order_form.save()
             return redirect("index")
     else:
