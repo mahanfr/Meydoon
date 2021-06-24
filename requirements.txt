@@ -1,9 +1,12 @@
 asgiref==3.3.1
+autopep8==1.5.7
 coverage==5.5
 crispy-tailwind==0.5.0
 Django==3.1.7
 django-crispy-forms==1.11.2
 djangorestframework==3.8.2
 Pillow==8.2.0
+pycodestyle==2.7.0
 pytz==2021.1
 sqlparse==0.4.1
+toml==0.10.2
