@@ -6,77 +6,64 @@
 {% block body %}
 {% load crispy_forms_tags %}
 {% load tailwind_filters %}
-<div class="container" style="max-width: 90%;">
-  <div {% if request.user == gig.user %}class="row"{% endif %}>
-    <div {% if request.user == gig.user %}class='col-md-8'{% endif %}>
-        <p align='center' class='display-4'>{{gig.title}}</p>
-          <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
+<div class="flex mx-8 mt-10">
+  <div>
+    <div>
+        <p class="text-center text-2xl mb-4">{{gig.title}}</p>
+          <div class="mx-auto mb-3 w-10/12 p-5 bg-brand-card rounded-md">
+            <p>{{gig.description}}</p>
+          </div>
+          <div class="mx-auto">
             {% for p in photo %}
-              <div class="carousel-item {% if forloop.first %} active{% endif %}" data-interval="5000">
-                <img src="{{p.image.url}}" class="d-block w-100" style ="height:350px" >
+              <div class="mx-auto">
+                <img src="{{p.image.url}}" class="mx-auto" style="width: 70%;">
               </div>
             {% endfor %}
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
           </div>
-        <p><h1>description : </h1>{{gig.description}}</p>
-        <hr>
         
-        <h1>Plans</h1>
-        <div class="flex items-center justify-center">
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
-        {% for plan in plans %}
-          <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-                <div class="text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
-                  <!-- svg  -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
+        <div class="mx-auto grid grid-cols-3 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
+          {% for plan in plans %}
+            <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+              <div class="text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
+                <!-- svg  -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div class="mt-8">
+                <p class="text-xl font-semibold my-2">{{plan.title}}</p>
+                <div class="flex space-x-2 text-black-400 text-sm">
+                  <p>{{plan.feature_list}}</p>
                 </div>
-                <div class="mt-8">
-                  <p class="text-xl font-semibold my-2">{{plan.title}}</p>
-                  <div class="flex space-x-2 text-black-400 text-sm">
-                    <p>{{plan.feature_list}}</p>
-                  </div>
-                  <div class="flex space-x-2 text-gray-400 text-sm my-3">
-                    <p>owner : {{plan.gig.user.user_name}}</p>
-                  </div>
-                  <div class="border-t-2"></div>
+                <div class="flex space-x-2 text-gray-400 text-sm my-3">
+                  <p>owner : {{plan.gig.user.user_name}}</p>
+                </div>
+                <div class="border-t-2"></div>
 
-                  <div class="flex justify-between">
-                    <div class="my-2">
-                      <p class="font-semibold text-base mb-2">Price:</p>
-                      <div class="text-base text-gray-400 font-semibold">
-                        <p>{{plan.price}} $</p>
-                      </div>
+                <div class="flex justify-between">
+                  <div class="my-2">
+                    <p class="font-semibold text-base mb-2">Price:</p>
+                    <div class="text-base text-gray-400 font-semibold">
+                      <p>{{plan.price}} $</p>
                     </div>
                   </div>
-                  <div class="my-2">
-                    <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
-                    {% if user == plan.gig.user %} <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="{% url 'edit_plan' plan.id %}">Edit</a>{% endif %}
-                  </div>
+                </div>
+                <div class="my-2">
+                  <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" href="{% url 'order' %}?plan={{plan.id}}&gig={{plan.gig.id}}">Order</a>
+                  {% if user == plan.gig.user %} <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="{% url 'edit_plan' plan.id %}">Edit</a>{% endif %}
                 </div>
               </div>
-            {% endfor %}
+            </div>
+          {% endfor %}
           </div>
-        </div> 
-        <hr>
         <h1>Comments</h1>
         {% for comment in comments %}
             {% if comment.is_approved %}
-            <div >
-            <h5>{{comment.title}}</h3>
-            <h6>{{comment.body}}</h5>
-            <p>{{comment.user.user_name}}<p>
-            </div>
+              <div class="bg-brand-card rounded-md w-80 my-4">
+                <h5 class="bg-white text-lg font-serif">{{comment.user.user_name}}</h3>
+                <p class="font-bold">{{comment.title}}<p>
+                <h6>{{comment.body}}</h5>
+              </div>
             {% endif %}
         {% endfor %}
         <hr>
@@ -111,7 +98,7 @@
         {% endif %}
   
     </div>
-    {% if request.user == gig.user  %}
+    {% if request.user == gig.user %}
     <div class="col-md-4 py-3">
       
       <div class="card">
@@ -147,22 +134,7 @@
         </div>
       </div>
 
-      <div align="center" class="row" style="width: inherit;margin-left: 0px;margin-top: 1px;">
-        <a href="#">
-          <div class="col card"  style="background-color:gray;color: white;cursor: pointer;">
-            <div align="center" class="card-header">
-              <b>Edit</b>
-            </div>
-          </div>
-        </a>
-        <a href="#">
-          <div class="col card"  style="background-color:gray;color: white;cursor: pointer;margin-left: 4px;">
-            <div align="center" class="card-header">
-              <b>Delete</b>
-            </div>
-          </div>
-        </a>
-      </div>
+      
     </div>
     {% endif %}
   </div>

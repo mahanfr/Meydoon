@@ -3,7 +3,9 @@ from gigs.models import Gig, Plan
 from django.shortcuts import redirect, render
 from .forms import DeliverForm, OrderForm
 
-# Create your views here.
+# Create your views here
+
+
 def order(request):
     plan_id = request.GET.get("plan", "/")
     gig_id = request.GET.get("gig", "/")
