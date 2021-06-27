@@ -89,6 +89,13 @@ class ShowcaseImage(models.Model):
     def __str__(self):
         return f"#{self.id}"
 
+    @staticmethod
+    def get_images(gig):
+        photo = ShowcaseImage.objects.filter(gig=gig)
+        if photo[0].image.name == "scimages/default.jpg" and len(photo) >= 2:  # delete default pic from image showcase
+            photo = photo[1:]
+        return photo
+
 
 # This model class handels ratings for a gig
 class UserRate(models.Model):

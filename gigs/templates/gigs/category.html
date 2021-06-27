@@ -15,7 +15,7 @@
               <p class="text-sm opacity-60">Level {{gig.experience}} Freelancer</p>
             </div>
           </div>
-          <a href="{% url 'gig_info' gig.id %}" style="-webkit-line-clamp: 2;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;word-wrap: break-word;"><h3 class="font-serif text-lg">{{gig.title}}</h3></a>
+          <a href="{% url 'gig_detail' gig.id %}" style="-webkit-line-clamp: 2;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;word-wrap: break-word;"><h3 class="font-serif text-lg">{{gig.title}}</h3></a>
           <small class="bg-blue-600 px-2 pb-0.5 text-white rounded-full text-opacity-80">{{gig.category}}</small>
         </div>
       </div>   
