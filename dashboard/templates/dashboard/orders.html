@@ -1,16 +1,38 @@
 {% extends "dashboard/base.html" %}
 {% block title %}Dashboard{% endblock %}
 {% block body %}
+<param id="current-tab" value="orders">
 <div class="mx-10">
   <h2 class="font-mono text-2xl dark:text-brand-textColor2">Orders</h2><br>
-  <div class="lg:flex justify-between">
-    {% if orders > 0 %}
-      {% for order in orders %}
-        <p>{{order.customer.username}}</p>
-      {% endfor %}
-    {% else %}
-      <p>nothing to show</p>
-    {% endif %}
-  </div>
+  {% for order in orders %}
+    <div class="bg-brand-card rounded-md p-4 my-2">
+      <div class="flex justify-between">
+        <div class="flex items-center space-x-2">
+          <img class="rounded-full" src="{{order.customer.profile.profile_pic.url}}" alt="" style="width:35px; height: 35px; object-fit: cover;">
+          <p class="font-thin">{{order.customer.user_name}}</p>
+        </div>
+        <select name="order_states" id="order_states">
+          <option val="">Please choose</option>
+          <option val="1">Accept</option>
+          <option val="3">Decline</option>
+        </select>
+      </div>
+      <h4 class="pl-4 py-2">{{order.order_message}}</h4>
+      <div class="flex justify-between">
+        <div class="flex">
+          {% if order.price_offer %}
+          <p class="mx-2">Pay: {{order.price_offer}}$</p>
+          {% endif %}
+          {% if order.price_offer %}
+          <p class="mx-2">Deadline: {{order.deadline}}</p>
+          {% endif %}
+          {% if order.file_example %}
+            <a class="mx-2 text-blue-500" href="{{order.file_example.url}}">Example File</a>
+          {% endif %}
+        </div>
+        <p>{{order.created_at}}</p>
+      </div>
+    </div>
+  {% endfor %}
 </div>
 {% endblock %}

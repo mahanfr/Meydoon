@@ -1,3 +1,4 @@
+from orders.models import Order
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from gigs.models import Gig
@@ -13,10 +14,7 @@ def get_dashboard_mygigs(request):
 @login_required
 def get_dashboard_orders(request):
     gigs = request.user.gig_set.all()
-    orders = []
-    for gig in gigs:
-        if gig.order_set.count() > 0:
-            orders.append(gig.order_set.all())
+    orders = Order.objects.filter(gig__in=gigs)
     context = {"orders": orders}
     return render(request, "dashboard/orders.html", context=context)
 
