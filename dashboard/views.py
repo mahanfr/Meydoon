@@ -32,10 +32,13 @@ def set_order_status(request):
                 order.state = 1
                 order.save()
                 print("accepted")
-            else:
+            elif request.POST["act"] == "Decline":
                 order.state = 3
                 order.save()
                 print("declined")
+            else:
+                print("Choose an option")
+                pass
             return redirect("dashboard-orders")
         return redirect("dashboard-orders")
 
