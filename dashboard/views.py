@@ -1,9 +1,9 @@
 from orders.models import Order
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from gigs.models import Gig
 from django.contrib.auth import get_user_model
-
+from users.forms import UserEditForm, ProfileEditForm
 
 @login_required
 def get_dashboard_mygigs(request):
@@ -17,6 +17,25 @@ def get_dashboard_orders(request):
     orders = Order.objects.filter(gig__in=gigs)
     context = {"orders": orders}
     return render(request, "dashboard/orders.html", context=context)
+
+@login_required
+def get_dashboard_profile_edit(request):
+    if request.method == "POST":
+        user_form = UserEditForm(request.POST, instance=request.user)
+        profile_form = ProfileEditForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect("profile")
+
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+
+    context = {"u_form": user_form, "p_form": profile_form}
+
+    return render(request, "dashboard/profile_edit.html", context)
+
 
 @login_required
 def get_dashboard_comments(request):
