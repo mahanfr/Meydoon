@@ -1,9 +1,11 @@
 from orders.models import Order
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render ,redirect
+from django.shortcuts import render, redirect
 from gigs.models import Gig
 from django.contrib.auth import get_user_model
 from users.forms import UserEditForm, ProfileEditForm
+from django.views.decorators.csrf import csrf_exempt
+
 
 @login_required
 def get_dashboard_mygigs(request):
@@ -11,12 +13,32 @@ def get_dashboard_mygigs(request):
     context = {"user_gig": user_gig}
     return render(request, "dashboard/mygigs.html", context=context)
 
+
 @login_required
 def get_dashboard_orders(request):
     gigs = request.user.gig_set.all()
     orders = Order.objects.filter(gig__in=gigs)
     context = {"orders": orders}
     return render(request, "dashboard/orders.html", context=context)
+
+
+@csrf_exempt
+def set_order_status(request):
+    if request.method == "POST":
+        if request.is_ajax:
+            order_id = request.POST["id"]
+            order = Order.objects.get(id=order_id)
+            if request.POST["act"] == "Accept":
+                order.state = 1
+                order.save()
+                print("accepted")
+            else:
+                order.state = 3
+                order.save()
+                print("declined")
+            return redirect("dashboard-orders")
+        return redirect("dashboard-orders")
+
 
 @login_required
 def get_dashboard_profile_edit(request):

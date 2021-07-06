@@ -16,6 +16,7 @@
           <option val="1">Accept</option>
           <option val="3">Decline</option>
         </select>
+        <button type="submit" class='btn btn-success' id='submit-btn' onclick="$.ajax({method: 'POST',url: '{% url 'set_status' %}',data: {'id' : {{order.id}}, 'act': $('#order_states').val() }});">Submit</button>
       </div>
       <h4 class="pl-4 py-2">{{order.order_message}}</h4>
       <div class="flex justify-between">
