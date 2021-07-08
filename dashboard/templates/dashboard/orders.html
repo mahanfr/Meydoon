@@ -5,6 +5,7 @@
 <div class="mx-10">
   <h2 class="font-mono text-2xl dark:text-brand-textColor2">Orders</h2><br>
   {% for order in orders %}
+  {% if order.state == 2 %}
     <div class="bg-brand-card rounded-md p-4 my-2">
       <div class="flex justify-between">
         <div class="flex items-center space-x-2">
@@ -16,7 +17,7 @@
           <option val="1">Accept</option>
           <option val="3">Decline</option>
         </select>
-        <button type="submit" class='btn btn-success' id='submit-btn' onclick="$.ajax({method: 'POST',url: '{% url 'set_status' %}',data: {'id' : {{order.id}}, 'act': $('#order_states').val() }});">Submit</button>
+        <button type="submit" class='btn btn-success' id='submit-btn' onclick="set_status({{order.id}})">Submit</button>
       </div>
       <h4 class="pl-4 py-2">{{order.order_message}}</h4>
       <div class="flex justify-between">
@@ -34,6 +35,81 @@
         <p>{{order.created_at}}</p>
       </div>
     </div>
+    {%endif%}
   {% endfor %}
+  <h2 class="font-mono text-2xl dark:text-brand-textColor2">Accepted</h2><br>
+  {% for order in orders %}
+  {% if order.state == 1 %}
+    <div class="bg-brand-card rounded-md p-4 my-2">
+      <div class="flex justify-between">
+        <div class="flex items-center space-x-2">
+          <img class="rounded-full" src="{{order.customer.profile.profile_pic.url}}" alt="" style="width:35px; height: 35px; object-fit: cover;">
+          <p class="font-thin">{{order.customer.user_name}}</p>
+        </div>
+        <a href="{% url 'deliver' %}?order={{order.id}}" class='btn btn-success' id='submit-btn'>Deliver</button>
+      </div>
+      <h4 class="pl-4 py-2">{{order.order_message}}</h4>
+      <div class="flex justify-between">
+        <div class="flex">
+          {% if order.price_offer %}
+          <p class="mx-2">Pay: {{order.price_offer}}$</p>
+          {% endif %}
+          {% if order.price_offer %}
+          <p class="mx-2">Deadline: {{order.deadline}}</p>
+          {% endif %}
+          {% if order.file_example %}
+            <a class="mx-2 text-blue-500" href="{{order.file_example.url}}">Example File</a>
+          {% endif %}
+        </div>
+        <p>{{order.created_at}}</p>
+      </div>
+    </div>
+    {%endif%}
+  {% endfor %}
+  <h2 class="font-mono text-2xl dark:text-brand-textColor2">Declined</h2><br>
+  {% for order in orders %}
+  {% if order.state == 3  %}
+    <div class="bg-brand-card rounded-md p-4 my-2">
+      <div class="flex justify-between">
+        <div class="flex items-center space-x-2">
+          <img class="rounded-full" src="{{order.customer.profile.profile_pic.url}}" alt="" style="width:35px; height: 35px; object-fit: cover;">
+          <p class="font-thin">{{order.customer.user_name}}</p>
+        </div>
+      </div>
+      <h4 class="pl-4 py-2">{{order.order_message}}</h4>
+      <div class="flex justify-between">
+        <div class="flex">
+          {% if order.price_offer %}
+          <p class="mx-2">Pay: {{order.price_offer}}$</p>
+          {% endif %}
+          {% if order.price_offer %}
+          <p class="mx-2">Deadline: {{order.deadline}}</p>
+          {% endif %}
+          {% if order.file_example %}
+            <a class="mx-2 text-blue-500" href="{{order.file_example.url}}">Example File</a>
+          {% endif %}
+        </div>
+        <p>{{order.created_at}}</p>
+      </div>
+    </div>
+    {%endif%}
+  {% endfor %}    
 </div>
+<script>
+function set_status(orderid){
+    var state = $('#order_states').val()
+    var ajax_config = {
+        url: "{% url 'set_status' %}",
+        data: {
+            id: orderid,
+            act : state
+        },
+        method: 'Post',
+        success: function (response) {
+          window.location.href = "{% url 'dashboard-orders' %}"
+        }
+    };
+    $.ajax(ajax_config);
+}
+</script>
 {% endblock %}
