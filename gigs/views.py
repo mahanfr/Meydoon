@@ -1,12 +1,9 @@
-from django import forms
-import django
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from .forms import GigCreationForm, GigEditForm, ShowcaseForm, CommentForm, PlanForm, PlanEditForm
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from .models import Comment, Gig, Plan, ShowcaseImage
-from django.forms import modelformset_factory
 from django.core.exceptions import PermissionDenied
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin

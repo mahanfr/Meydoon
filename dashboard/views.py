@@ -1,7 +1,7 @@
 from orders.models import Order
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from gigs.models import Gig
+from gigs.models import Comment, Gig
 from django.contrib.auth import get_user_model
 from users.forms import UserEditForm, ProfileEditForm
 from django.views.decorators.csrf import csrf_exempt
@@ -65,9 +65,6 @@ def get_dashboard_profile_edit(request):
 @login_required
 def get_dashboard_comments(request):
     gigs = request.user.gig_set.all()
-    comments = []
-    for gig in gigs:
-        if gig.comment_set.count() > 0:
-            comments.append(gig.order_set.all())
+    comments = Comment.objects.filter(gig__in=gigs)
     context = {"comments": comments}
     return render(request, "dashboard/comments.html", context=context)
