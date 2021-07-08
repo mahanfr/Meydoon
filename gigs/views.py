@@ -53,6 +53,13 @@ class AddPlan(generic.CreateView, LoginRequiredMixin):
         form.save()
         return redirect("gig_detail", gig_id)
 
+    def get(self, request, *args, **kwargs):
+        gig_id = self.request.GET.get("gig")
+        gig = Gig.objects.get(id=gig_id)
+        if request.user == gig.user:
+            return super().get(request, *args, **kwargs)
+        raise PermissionDenied
+
 
 # def add_image(request, gig_id):
 #     try:
