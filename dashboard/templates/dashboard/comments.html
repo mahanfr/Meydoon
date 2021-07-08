@@ -12,7 +12,7 @@
           <p class="font-thin">{{comment.user.user_name}}</p>
         </div>
         <div>
-          <a href="#"><i class="text-green-700 fas fa-check"></i></a>
+          <button onclick="approve({{comment.id}})"><i class="text-green-700 fas fa-check"></i></button>
         </div>
       </div>
       <h3 class="pl-4 pt-1 font-semibold">{{comment.title}}</h3>
@@ -43,4 +43,19 @@
   {% endfor %}
 
 </div>
+<script>
+function approve(commentid){
+    var ajax_config = {
+        url: "{% url 'approve' %}",
+        data: {
+            id: commentid,
+        },
+        method: 'POST',
+        success: function (response) {
+          window.location.href = "{% url 'dashboard-comments' %}"
+        }
+    };
+    $.ajax(ajax_config);
+}
+</script>
 {% endblock %}

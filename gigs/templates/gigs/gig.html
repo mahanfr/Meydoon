@@ -108,19 +108,6 @@
 
 </div>
 <script>
-function approve(commentid,gigid){
-    var ajax_config = {
-        url: "{% url 'approve' %}",
-        data: {
-            id: commentid,
-        },
-        method: 'POST',
-        success: function (response) {
-          window.location.href = "gigs/"+gigid
-        }
-    };
-    $.ajax(ajax_config);
-}
   function showCreatePlanCard() {
     var x = document.getElementById("CreatePlanCard");
     if (x.style.display === "none") {

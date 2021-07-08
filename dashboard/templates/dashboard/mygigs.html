@@ -10,7 +10,7 @@
           <img class="mx-auto" src="{{gig.get_showcase.url}}" alt="" style="width: 250px;height: 150px;object-fit: cover;">
           <div class="flex flex-col justify-between px-3 flex-grow">
             <div class="">
-              <h3>{{gig.title}}</h3>
+              <a href ="{% url 'gig_detail' gig.id %}" ><h3>{{gig.title}}</h3></a>
               <h4>{{gig.description}}</h4>
             </div>
             <div class="flex justify-between items-center">
