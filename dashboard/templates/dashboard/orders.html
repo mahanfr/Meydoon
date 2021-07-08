@@ -46,7 +46,7 @@
           <img class="rounded-full" src="{{order.customer.profile.profile_pic.url}}" alt="" style="width:35px; height: 35px; object-fit: cover;">
           <p class="font-thin">{{order.customer.user_name}}</p>
         </div>
-        <a href="{% url 'deliver' %}?order={{order.id}}" class='btn btn-success' id='submit-btn'>Deliver</button>
+        <a href="{% url 'deliver' %}?order={{order.id}}" class='btn btn-success' id='submit-btn'>Deliver</a>
       </div>
       <h4 class="pl-4 py-2">{{order.order_message}}</h4>
       <div class="flex justify-between">
@@ -78,7 +78,7 @@
       </div>
       <h4 class="pl-4 py-2">{{order.order_message}}</h4>
       <div class="flex justify-between">
-        <div class="flex">
+        <div class="">
           {% if order.price_offer %}
           <p class="mx-2">Pay: {{order.price_offer}}$</p>
           {% endif %}

@@ -102,51 +102,9 @@
         <p>You have to <a href="{% url 'login' %}?next_page={{request.path}}">login<a> to your account first<p>   
         {% endif %}
     {% endif %}
-
-    {% if user == object.user %}
-    <a class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' href="{% url 'edit_gig' gig.id %}">Edit</a>
-    {% comment %} edit gig {% endcomment %}
-    {% endif %}  
   </div>
   <!-- Comments -->
   
-  <!-- Settings -->
-  <div>
-    {% if request.user == object.user %}
-    <div class="col-md-4 py-3">
-  
-      <div class="card">
-        <div class="card-header" style="background-color:gray;color: white;cursor: pointer;" onclick="showCreatePlanCard()">
-          <i class="far fa-check-circle" {% if object.plans_count == 0 %}style="color: silver;"{% else %}style="color: greenyellow;"{% endif %}></i>
-          <b>Create a plan</b>
-        </div>
-        <div id="CreatePlanCard" class="card-body" style="display: none;">
-            <a href="{% url 'add_plan' %}?gig={{object.id}}" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Add</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header" style="background-color:gray;color: white;cursor: pointer;" onclick="showAddImageCard()">
-          <i class="far fa-check-circle" {% if gig.plans_count == 0 %}style="color: silver;"{% else %}style="color: greenyellow;"{% endif %}></i>
-          <b>Add an Image</b>
-        </div>
-        <div id="AddImageCard" class="card-body" style="display: none;">
-          {% comment %} we can handel this with jquery (form will show up when we click btn) {% endcomment %}
-          <form  method="post" class='container' enctype="multipart/form-data">
-          {{csrftoken}}
-            {{ formset.management_form }}
-            {% for form in formset %}
-            {% csrf_token %}
-              {{ form }}
-            {% endfor %}
-            <button type="submit"class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Add</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    {% endif %}
-  </div>
-  <!-- Settings -->
 
 </div>
 <script>

@@ -19,8 +19,8 @@
                 <small class="ml-1">{{gig.sub_category}}</small>
               </div>
               <div class="">
-                <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
-                <a class="ml-1" href="#"><i class="fas fa-bell"></i></a>
+                <a class="ml-1" href="{% url 'edit_gig' gig.id %}"><i class="fas fa-pen"></i></a>
+                <a class="ml-1" href="{% url 'add_plan' %}?gig={{gig.id}}"><i class="fas fa-plus"></i></a>
               </div>
             </div>
           </div>
