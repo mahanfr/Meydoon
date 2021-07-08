@@ -16,11 +16,9 @@
       <p>{{object.description}}</p>
     </div>
     <div class="mx-auto">
-      {% for p in photo %}
         <div class="mx-auto">
-          <img src="{{p.image.url}}" class="mx-auto" style="width: 50%;">
+          <img src="{{photo.first.image.url}}" class="mx-auto" style="width: 50%;">
         </div>
-      {% endfor %}
     </div>
   </div>
   <!-- Info -->
@@ -85,7 +83,7 @@
           <h6>{{comment.body}}</h5>
           <p>{{comment.user.user_name}}<p>
           <p> <p class="badge badge-danger">new</p>  you have to confirm this <p>
-          <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="$.ajax({type: 'POST',url: '{% url 'approve' %}',data: {'id' : {{comment.id}}}});">Approve</button>
+          <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="approve({{comment.id}},{{comment.gig.id}})">Approve</button>
           {% comment %} comment confirmation should add {% endcomment %}
         </div>
         {% endif %}
@@ -152,6 +150,19 @@
 
 </div>
 <script>
+function approve(commentid,gigid){
+    var ajax_config = {
+        url: "{% url 'approve' %}",
+        data: {
+            id: commentid,
+        },
+        method: 'POST',
+        success: function (response) {
+          window.location.href = "gigs/"+gigid
+        }
+    };
+    $.ajax(ajax_config);
+}
   function showCreatePlanCard() {
     var x = document.getElementById("CreatePlanCard");
     if (x.style.display === "none") {
