@@ -75,18 +75,6 @@
           </div>
         {% endif %}
     {% endfor %}
-    <hr>
-    {% for comment in object.comment_set.all %}
-        {% if not comment.is_approved and user == object.user%}
-        <div>
-          <h5>{{comment.title}}</h3>
-          <h6>{{comment.body}}</h5>
-          <p>{{comment.user.user_name}}<p>
-          <p> <p class="badge badge-danger">new</p>  you have to confirm this <p>
-          <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="approve({{comment.id}},{{comment.gig.id}})">Approve</button>
-        </div>
-        {% endif %}
-    {% endfor %}
     <!--Add Comment-->
     {% if user.is_authenticated %}
       <h1>Write a comment</h1>

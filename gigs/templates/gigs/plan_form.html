@@ -2,9 +2,9 @@
 {% block body %}
 {% load crispy_forms_tags %}
 {% load tailwind_filters %}
-<form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
-{% csrf_token %}
-{{form|crispy}}
+<form  method="post" style="padding-top:50px; width:400px;" class='mx-auto' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form|crispy}}
     <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Confirm</button>
 </form>
 {%endblock%}
