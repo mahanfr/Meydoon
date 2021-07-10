@@ -34,7 +34,7 @@ def deliver(request):
             if deliver_form.is_valid():
                 deliver_form.save(commit=False).order = order
                 deliver_form.save()
-                return redirect("profile")
+                return redirect("dashboard-orders")
             else:
                 redirect("deliver")
         else:

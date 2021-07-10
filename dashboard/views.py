@@ -1,4 +1,4 @@
-from orders.models import Order
+from orders.models import Deliver, Order
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from gigs.models import Comment, Gig
@@ -68,3 +68,11 @@ def get_dashboard_comments(request):
     comments = Comment.objects.filter(gig__in=gigs)
     context = {"comments": comments}
     return render(request, "dashboard/comments.html", context=context)
+
+
+@login_required
+def get_dashboard_myorders(request):
+    orders = request.user.order_set.all()
+    delivers = Deliver.objects.filter(order__in=orders)
+    context = {"orders": orders,"delivers":delivers}
+    return render(request, "dashboard/myorders.html", context=context)

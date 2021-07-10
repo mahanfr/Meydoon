@@ -84,28 +84,18 @@
           <p>{{comment.user.user_name}}<p>
           <p> <p class="badge badge-danger">new</p>  you have to confirm this <p>
           <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onclick="approve({{comment.id}},{{comment.gig.id}})">Approve</button>
-          {% comment %} comment confirmation should add {% endcomment %}
         </div>
         {% endif %}
     {% endfor %}
-    
-    {% if user != object.user %}
-        {% if user.is_authenticated %}
-          <h1>Write a comment</h1>
-          <a href="{% url 'add_comment' %}?gig={{object.id}}">add</a>
-          <form  method="post" style="padding-top:50px; width:400px;height:70%" class='container' enctype="multipart/form-data">
-        {% csrf_token %}
-        {{c_form|crispy}}
-          <button type="submit" class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Confirm</button>
-        </form>
-        {% else %}
-        <p>You have to <a href="{% url 'login' %}?next_page={{request.path}}">login<a> to your account first<p>   
-        {% endif %}
+    <!--Add Comment-->
+    {% if user.is_authenticated %}
+      <h1>Write a comment</h1>
+      <a href="{% url 'add_comment' %}?gig={{object.id}}">add</a>
+    {% else %}
+      <p>You have to <a href="{% url 'login' %}?next_page={{request.path}}">login<a> to your account first<p>   
     {% endif %}
   </div>
   <!-- Comments -->
-  
-
 </div>
 <script>
   function showCreatePlanCard() {
